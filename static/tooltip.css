@@ -1,0 +1,78 @@
+.tooltip {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: calc(200vh - var(--div-height));
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 5px 5px 50px rgba(0, 0, 0, 0.2);
+  width: 20em;
+  z-index: 1000;
+  opacity: 0;
+  transition: 0.3s ease all;
+  transform: translateY(10px);
+}
+
+.tooltip::after {
+  content: "";
+  display: inline-block;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 15px solid #fff;
+  position: absolute;
+  bottom: -15px;
+  left: calc(50% - 15px);
+}
+
+.tooltip.activo {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.tooltip .info {
+  width: 85%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: justify;
+}
+
+.tooltip .info .resumen {
+  margin-bottom: 10px;
+}
+
+.tooltip .info .contenedor-btn {
+  display: flex;
+  justify-content: center;
+}
+
+/* ------------------------- */
+/* Mediaqueries */
+/* ------------------------- */
+
+@media screen and (max-width: 768px) {
+  figcaption .tooltip {
+    font-size: 12px;
+  }
+
+  .tooltip .info button {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  figure .mapa {
+    margin-bottom: 40px;
+  }
+
+  figcaption .icono {
+    top: 32px;
+  }
+
+  .tooltip::after {
+    content: "";
+    display: none;
+  }
+}

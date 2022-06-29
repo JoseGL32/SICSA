@@ -1,0 +1,157 @@
+.containers{
+    width: 90%;
+    min-width: 50px;
+    height: 100vh;  
+    overflow: scroll;
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 5px;
+    background-color: rgb(255, 255, 255);
+  }
+  .row{
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 5px 5px 5px;
+    margin-left: 10px;
+ 
+  }
+  .row-second{
+    text-align: left;
+    display: flex;
+    margin-left: 10%;
+    margin-top: 5%;
+    margin-bottom: 0;
+  }
+  p{
+    margin: 0;
+    color:black;
+   }
+   h5{
+     color:black;
+     padding: 10px;
+   }
+   textarea{
+     border:none;
+      margin-left: 10px;
+      margin-right: 10px;
+      font-size: 20px;
+   }
+
+   textarea:hover{
+    border-bottom:black solid 2px;
+    overflow: scroll;
+  }
+  
+
+
+   .object-info{
+     text-align: left;
+     display: flex;
+     flex-direction: column;
+   }
+   .obj-enlace{
+     display: flex;
+     flex-direction: column;
+     margin-bottom: 300px;
+   }
+   .a-decoration{
+     text-decoration: none;
+     font-size: 20px;
+     color: black;
+     margin-top: 1em;
+   }
+   .a-decoration:hover{
+    text-decoration: none;
+
+  }
+  .imagePresentation{
+    width: 120px;
+    height: 120px;
+  }
+  /* impresion*/
+  .mostras{
+    background-color: rgb(161, 161, 161);
+  }
+
+  .print{
+    background-color: #538393;
+    color: black;
+    border: 0;
+    width: 100px;
+  }
+  .print:hover{
+    background-color: #695CFE;
+   
+  }
+
+  /*fin impresion*/
+  .btn{
+    margin: 20px;
+    
+   background-color: cadetblue;
+  }
+  .styleimage{
+  margin-bottom: 150px;
+  margin-top: 0;
+  width: 200px;
+  height: 200px;
+  }
+  .table{
+    display: flex;
+    padding-top:100px ;
+    padding-left: 100px;
+  }
+  .table1{
+  
+    padding-top:100px ;
+    padding-left: 50px;
+  }
+  span{
+    color: rgb(115, 115, 255); 
+    font-size: 15px;
+    margin: 0;
+    }
+  table{
+    background-color: rgb(169, 169, 184);
+    width: 50%;
+    margin: 1.86em;
+    margin-right: 1.86em;
+    padding-right: 20px;
+  }
+  hr{
+    background-color: rgb(115, 115, 255);
+    height: 2px;
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 0;
+  }
+
+  .container-fondo{
+ 
+    padding-left: 10%;
+    padding-top: 2%;
+    background-color: rgb(161, 161, 161);
+    height: 100vh;
+  }
+  .headerpdf{
+    font-size: 15px;
+    color: rgb(115, 115, 255);
+    margin-bottom: 0;
+  }
+
+.image-reference{
+   margin-left: 30%;
+  margin-top: 15%;
+  
+}
+.input-meta{
+  color: black;
+  border: 0;
+  
+}
+#tableCot{
+  border: black 2px solid;
+  width: 90%;
+  
+}

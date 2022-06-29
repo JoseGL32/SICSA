@@ -1,0 +1,126 @@
+.div-verpdf-acta {
+  width: 100%;
+  display: none;
+  background-color: #fff;
+}
+.encabezado-pdf-acta {
+  display: flex;
+}
+.sin-neg {
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 1;
+}
+.titulo-pdf-acta {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 5px;
+  font-size: 20px;
+}
+/*texto de la first line */
+.first-line {
+  color: #286478;
+  font-weight: 900;
+  padding-top: 10px;
+  font-size: 15px;
+}
+.second-line {
+  font-weight: normal;
+  font-size: 15px;
+}
+/*titulo*/
+.titulo-acta {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  align-items: center;
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: bold;
+}
+.info-acta {
+  display: relative;
+  margin-left: 20px;
+}
+.hr-div-acta {
+  margin-left: 15px;
+  margin-right: -10px;
+  border: 3px solid #286478;
+}
+.hr-div-acta2 {
+  margin-left: -5px;
+  margin-right: -10px;
+  border: 3px solid #286478;
+}
+.tabla-acta1 {
+  display: flex;
+  justify-content: center;
+}
+.tabla-acta {
+  border-collapse: collapse;
+  width: 100vw;
+}
+.tabla-acta th {
+  width: 300px;
+  text-align: left;
+  border: 1px solid #000;
+  justify-content: center;
+  padding: 5px 5px 5px 5px;
+  margin: 50px;
+}
+.tabla-acta td {
+  width: 800px;
+  text-align: left;
+  border: 1px solid #000;
+  justify-content: center;
+  padding: 5px 5px 5px 5px;
+  margin: 50px;
+}
+.resaltar {
+  font-weight: bold;
+}
+.firma-raya {
+  display: absolute;
+  position: absolute;
+  border: 1px solid #000;
+  left: 10px;
+  margin-left: 20px;
+  width: 25%;
+}
+.firma-raya2 {
+  display: absolute;
+  position: absolute;
+  margin-left: 50%;
+  border: 1px solid #000;
+  width: 100%;
+}
+.texto-acta {
+  text-align: justify;
+  line-height: 1.5;
+}
+.texto-firma {
+  display: absolute;
+  margin-left: 10px;
+  padding-left: 10px;
+  position: absolute;
+}
+.texto-firma2 {
+  display: absolute;
+  margin-left: 50%;
+  padding-left: 10px;
+  font-size: 15px;
+  position: absolute;
+}
+.firma-raya-arriba {
+  display: absolute;
+  width: 300px;
+  height: 200px;
+  position: absolute;
+  margin-left: 50%;
+  top: 1050px;
+}
+.footer-acta {
+  padding-left: 10px;
+  font-size: 13px;
+}

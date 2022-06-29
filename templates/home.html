@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+{% extends "layout.html" %} {% block content %}
+
+<head>
+  <!----===== HOME ===== -->
+
+  <title>SCISA-Home</title>
+  {%block head%}
+  <!-- ========= reloj========= -->
+  <link rel="stylesheet" type="text/css" href="../static/jquery-clockpicker.css" />
+  <link rel="stylesheet" type="text/css" href="../static/acta.css" />
+  <script type="text/javascript" src="../static/clockpicker/assets/js/jquery.min.js"></script>
+
+  <script type="text/javascript" src="../static/clockpicker/assets/js/bootstrap.min.js"></script>
+
+  <!-- ClockPicker script -->
+  <script type="text/javascript" src="../static/clockpicker/dist/bootstrap-clockpicker.min.js"></script>
+  <!----===== CSS ===== -->
+  <link rel="stylesheet" href="../static/diseño.css" />
+  <link rel="stylesheet" href="../static/formularios.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+  <script type="text/javascript">
+    var jQuery_3_6_0 = $.noConflict(true)
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+  {%endblock%}
+</head>
+
+<nav class="div-encabezado">
+  <label class="texto-encabezado-nav">HOME</label>
+</nav>
+
+<nav class="div-encabezado-opciones">
+  <div class="barra-busqueda">
+    <form action="/busquedapro" method="POST">
+      <button type="submit">
+        <box-icon name="search"></box-icon>
+      </button>
+      <input type="text" placeholder=" Busqueda de Proyecto" name="busqueda" />
+    </form>
+  </div>
+  <span class="btn_menu1">
+    <ul class="menu-barratop-opciones-items">
+      {% if session.user %} {% if session.userrole == 1%}
+      <!-- admin -->
+      {% if soli%} {%set var = [] %} {% for list in soli %} {% if
+      list.NombreEstado == "Pendiente"%} {%do var.append(1)%} {% endif%}
+      {%endfor%} {% if var %}
+      <box-icon type="solid" onclick="notificacion()" name="bell"></box-icon>
+      <span id="burbuja1"></span>
+      <li>
+        <a href="#" onclick="notificacion()">
+          Notificaciones
+          <span id="burbuja"></span>
+        </a>
+      </li>
+      {%else%}
+      <box-icon type="solid" onclick="notificacion()" name="bell"></box-icon>
+      <li><a href="#" onclick="notificacion()">Notificaciones</a></li>
+      {% endif%} {%else%}
+      <box-icon type="solid" onclick="notificacion()" name="bell"></box-icon>
+      <li><a href="#" onclick="notificacion()">Notificaciones</a></li>
+      {% endif%}
+      <box-icon type="solid" onclick="reportes()" name="report"></box-icon>
+      <li><a href="#" onclick="reportes()">Reportes</a></li>
+      <box-icon onclick="acta()" name="spreadsheet"></box-icon>
+      <li><a href="#" onclick="acta()">Acta Entrega</a></li>
+      <box-icon type="logo" name="gmail"></box-icon>
+
+      <a href="https://mail.google.com/mail/u/0/?fs=1&to=direccionprueba@gmail.com&su=Reporte%20del%20Proyecto&body=Insertar%20Reporte&tf=cm"
+        target="_blank">
+        <box-icon type="logo" name="gmail"></box-icon>
+      </a>
+      <li>
+        <a href="https://mail.google.com/mail/u/0/?fs=1&to=direccionprueba@gmail.com&su=Reporte%20del%20Proyecto&body=Insertar%20Reporte&tf=cm"
+          target="_blank">
+          Correo
+        </a>
+      </li>
+      {%else%}
+      <!-- Empleado -->
+      {% if soli%} {%set var = [] %} {% for list in soli %} {% if
+      list.NombreEstado == "Aceptado" and list.Vigencia == 1%} {%do
+      var.append(1)%} {% endif%} {%endfor%} {% if var %}
+      <box-icon type="solid" onclick="notificacion()" name="bell"></box-icon>
+      <span id="burbuja1"></span>
+      <li>
+        <a href="#" onclick="notificacion()">
+          Notificaciones
+          <span id="burbuja"></span>
+        </a>
+      </li>
+      {%else%}
+      <box-icon type="solid" onclick="notificacion()" name="bell"></box-icon>
+      <li><a href="#" onclick="notificacion()">Notificaciones</a></li>
+      {% endif%} {%else%}
+      <box-icon type="solid" onclick="notificacion()" name="bell"></box-icon>
+      <li><a href="#">Notificaciones</a></li>
+      {% endif%}
+      <box-icon name="spreadsheet" onclick="solicitud()"></box-icon>
+      <li><a href="#" onclick="solicitud()">Solicitud</a></li>
+      <box-icon type="solid" name="report" onclick="reportellen1()"></box-icon>
+      <li><a href="#" onclick="reportellen1()">Reportes</a></li>
+      <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" target="_blank">
+        <box-icon type="logo" name="gmail"></box-icon>
+      </a>
+      <li>
+        <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" target="_blank">
+          Correo
+        </a>
+      </li>
+      <box-icon type="solid" name="report" onclick="perfil()"></box-icon>
+      <li><a href="#" onclick="perfil()">Perfil</a></li>
+      {% endif%} {% endif%}
+    </ul>
+  </span>
+</nav>
+{% if session.user %} {% if session.userrole == 1%}
+<main class="main-cont">
+  <div class="div-listaproyecto">
+    <label class="texto-encabezado-nav">Proyectos</label>
+    <hr />
+    <div class="sele-mes">
+      <form class="form-bot-lat" action="/home" method="POST">
+        <div class="grupo">
+          <button class="boton-invisible" type="submit">
+            <label class="text-sele" for="inputGroupSelect01">Elegir</label>
+          </button>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" name="selec-mes">
+          <option value="todo" selected="true">Todos</option>
+          <option value="01">Enero</option>
+          <option value="02">Febrero</option>
+          <option value="03">Marzo</option>
+          <option value="04">Abril</option>
+          <option value="05">Mayo</option>
+          <option value="06">Junio</option>
+          <option value="07">Julio</option>
+          <option value="08">Agosto</option>
+          <option value="09">Septiembre</option>
+          <option value="10">Octubre</option>
+          <option value="11">Noviembre</option>
+          <option value="12">Diciembre</option>
+        </select>
+      </form>
+    </div>
+
+    <div class="container">
+      <div class="tabla">
+        <!-- aqui va cuando selecciona un mes -->
+        {% if indice == "todo"%}
+        <form action="/home1" method="POST">
+          <table class="custab">
+            <thead>
+              <tr>
+                <th>ID Proyecto</th>
+                <th>Nombre Proyecto</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Estado</th>
+                <th>Responsable</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody class="cuerpo-tabla">
+              {% for fila in pro %}
+
+              <tr>
+                <td>{{ fila.Id_Proyecto }}</td>
+                <td>{{ fila.NombreProyecto}}</td>
+                <td>{{ fila.FechaHoraInicio}}</td>
+                {% if fila.FechaHoraFin == "NULL"%}
+                <td>--</td>
+                {%else%}
+                <td>{{ fila.FechaHoraFin}}</td>
+                {% endif%} {% if fila.NombreEstado == "Completado"%}
+                <td class="completo">
+                  <text class="textoc">{{ fila.NombreEstado}}</text>
+                </td>
+                {% elif fila.NombreEstado == "Incompleto"%}
+                <td class="incompleto">
+                  <text class="textoi">{{ fila.NombreEstado}}</text>
+                </td>
+                {%else%}
+                <td class="progreso">
+                  <text class="textop">{{ fila.NombreEstado}}</text>
+                </td>
+                {% endif%}
+                <td>{{ fila.Nombre}}</td>
+                <td class="text-center">
+                  <a href="{{ url_for( 'home1' ,info=fila.Id_Proyecto) }}">
+                    <box-icon name="show" type="solid" color="#3075c9"></box-icon>
+                  </a>
+                </td>
+              </tr>
+
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+
+        <!-- aqui va cuando selecciona todo-->
+        {%elif indice == "mes"%}
+        <form action="/home" method="POST">
+          <table class="custab">
+            <thead>
+              <tr>
+                <th>ID Proyecto</th>
+                <th>Nombre Proyecto</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Estado</th>
+                <th>Responsable</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody class="cuerpo-tabla">
+              {% for fila in pro_espe %}
+              <tr>
+                <td>{{ fila.Id_Proyecto }}</td>
+                <td>{{ fila.NombreProyecto}}</td>
+                <td>{{ fila.FechaHoraInicio}}</td>
+                {% if fila.FechaHoraFin == "NULL"%}
+                <td>--</td>
+                {%else%}
+                <td>{{ fila.FechaHoraFin}}</td>
+                {% endif%} {% if fila.NombreEstado == "Completado"%}
+                <td class="completo">
+                  <text class="textoc">{{ fila.NombreEstado}}</text>
+                </td>
+                {% elif fila.NombreEstado == "Incompleto"%}
+                <td class="incompleto">
+                  <text class="textoi">{{ fila.NombreEstado}}</text>
+                </td>
+                {%else%}
+                <td class="progreso">
+                  <text class="textop">{{ fila.NombreEstado}}</text>
+                </td>
+                {% endif%}
+                <td>{{ fila.Nombre}}</td>
+                <td class="text-center">
+                  <a href="{{ url_for( 'home1' ,info=fila.Id_Proyecto) }}">
+                    <box-icon name="show" type="solid" color="#3075c9"></box-icon>
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+        <!-- aqui va cuando selecciona un mes que no hay registros-->
+        {%else%}
+        <form action="/home" method="POST">
+          <table class="custab">
+            <thead>
+              <tr>
+                <th>ID Proyecto</th>
+                <th>Nombre Proyecto</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Estado</th>
+                <th>Responsable</th>
+                <th class="text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody class="cuerpo-tabla">
+              {% for fila in pro %}
+              <tr>
+                <td>{{ fila.Id_Proyecto }}</td>
+                <td>{{ fila.NombreProyecto}}</td>
+                <td>{{ fila.FechaHoraInicio}}</td>
+                {% if fila.FechaHoraFin == "NULL"%}
+                <td>--</td>
+                {%else%}
+                <td>{{ fila.FechaHoraFin}}</td>
+                {% endif%} {% if fila.NombreEstado == "Completado"%}
+                <td class="completo">
+                  <text class="textoc">{{ fila.NombreEstado}}</text>
+                </td>
+                {% elif fila.NombreEstado == "Incompleto"%}
+                <td class="incompleto">
+                  <text class="textoi">{{ fila.NombreEstado}}</text>
+                </td>
+                {%else%}
+                <td class="progreso">
+                  <text class="textop">{{ fila.NombreEstado}}</text>
+                </td>
+                {% endif%}
+                <td>{{ fila.Nombre}}</td>
+                <td class="text-center">
+                  <a href="{{ url_for( 'home1' ,info=fila.Id_Proyecto) }}">
+                    <box-icon name="show" type="solid" color="#3075c9"></box-icon>
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+        {%endif%}
+      </div>
+    </div>
+  </div>
+  <div class="div-grafico">
+    <text class="oculto" id="completado">{{comp}}</text>
+    <text class="oculto" id="incompleto">{{inco}}</text>
+    <text class="oculto" id="progreso">{{prog}}</text>
+    <label class="texto-encabezado-nav">Estadísticas del mes</label>
+    <hr />
+    <div class="div-grafico-gra">
+      <canvas id="myChart"></canvas>
+    </div>
+
+    <div class="b-skills">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm col-sm col-sm">
+            <div class="skill-item center-block">
+              <div class="chart-container">
+                <div class="chart" data-percent="{%if incompleto%}{{incompleto}}{%else%}0{%endif%}"
+                  data-bar-color="#c63637">
+                  <span class="percent" data-after="%">{{incompleto}}</span>
+                </div>
+              </div>
+
+              <p>Incompletos</p>
+            </div>
+          </div>
+
+          <div class="col-sm col-sm col-sm">
+            <div class="skill-item center-block">
+              <div class="chart-container">
+                <div class="chart" data-percent="{%if completo%}{{completo}}{%else%}0{%endif%}"
+                  data-bar-color="#006c0f ">
+                  <span class="percent" data-after="%">{{completo}}</span>
+                </div>
+              </div>
+
+              <p>Completado</p>
+            </div>
+          </div>
+
+          <div class="col-sm col-sm col-sm">
+            <div class="skill-item center-block">
+              <div class="chart-container">
+                <div class="chart" data-percent="{%if progreso%}{{progreso}}{%else%}0{%endif%}"
+                  data-bar-color=" yellow">
+                  <span class="percent" data-after="%">{{progreso}}</span>
+                </div>
+              </div>
+
+              <p>En Progreso</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <script src="../static/js/plugins/jquery-2.2.4.min.js"></script> -->
+    <script src="../static/js/plugins/jquery.appear.min.js"></script>
+    <script src="../static/js/plugins/jquery.easypiechart.min.js"></script>
+    <script>
+      $(function () {
+        if (window.innerWidth < 858) {
+          $('.chart').easyPieChart({
+            //your options goes here
+            easing: 'easeOutElastic',
+            delay: 3000,
+            width: 50,
+            barColor: '#369670',
+            trackColor: '#fff',
+            scaleColor: false,
+            lineWidth: 25,
+            trackWidth: 21,
+            size: 300,
+            lineCap: 'round',
+          })
+        } else {
+          $('.chart').easyPieChart({
+            //your options goes here
+            easing: 'easeOutElastic',
+            delay: 3000,
+            width: 50,
+            barColor: '#369670',
+            trackColor: '#fff',
+            scaleColor: false,
+            lineWidth: 15,
+            trackWidth: 21,
+            size: 100,
+            lineCap: 'round',
+          })
+        }
+      })
+    </script>
+  </div>
+
+  <div class="div-notificacion" style="display: none;">
+    <label class="texto-encabezado-nav">Notificaciones</label>
+    <a class="close" href="#" onclick="notificacion()">&times;</a>
+    <hr />
+    <div class="container">
+      {% if soli%}
+      {%set mostrarnot = [] %}
+      {%set solicitador = []%}
+      {%set idsolicitador = []%}
+      {% for list in soli %}
+      {% if list.NombreEstado == "Pendiente"%}
+      {%do mostrarnot.append(1)%}{%do solicitador.append(list.Nombres) %}{%do idsolicitador.append(list.idprestacion) %}
+      {%endif%}
+
+      {% if mostrarnot %}
+      <a href="{{url_for('infoprestaciones', id = list.idprestacion)}}">
+        Tiene una Solicitud Pendiente de {{list.Nombres}}
+      </a>
+      {% endif%}
+      {%endfor%}
+      {%else%}
+      <p>sin notificaciones</p>
+      {% endif%}
+    </div>
+  </div>
+  <div class="div-notificacion1">
+    <label class="texto-encabezado-nav">Notificaciones</label>
+    <a class="close" href="#" onclick="notificacion1()">&times;</a>
+    <div class="container">
+      <div class="tabla">
+        <form action="/AceptarSoli" method="POST">
+          <table class="custab">
+            <thead>
+              <tr>
+                <th>ID Solicitud</th>
+                <th>Nombre</th>
+                <th>Titulo</th>
+                <th>justificacion</th>
+                <th>Fecha Solicitud</th>
+                <th>Estado</th>
+                <th class="text-center">Accción</th>
+              </tr>
+            </thead>
+            <tbody class="cuerpo-tabla">
+              {% for fila in soli %} {%if fila.Nombre == solicitador[0] and
+              fila.NombreEstado == "Pendiente" %}
+              <tr>
+                <td>{{ fila.Id_Solicitud }}</td>
+                <td>{{ fila.Nombre}}</td>
+                <td>{{ fila.Titulo}}</td>
+                <td>{{ fila.Justificacion}}</td>
+                <td>{{ fila.FechaSoli}}</td>
+                <td>{{ fila.NombreEstado}}</td>
+                <td class="text-center">
+                  <button class="boton-invisible" name="resp" value="{{fila.Id_Solicitud}}" type="submit">
+                    <box-icon name="check-circle" type="solid" color="#58a257"></box-icon>
+                    <box-icon name="x-circle" type="solid" flip="vertical" color="#da1717"></box-icon>
+                  </button>
+                </td>
+              </tr>
+              {%endif%} {% endfor %}
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="div-reportes" style="display: none;">
+    <label class="texto-encabezado-nav">Reportes</label>
+    <a class="close" href="#" onclick="reporte()">&times;</a>
+    <a class="opc-reporte" href="#" onclick="reportellen()">Generar</a>
+
+    <hr />
+    <div class="sele-mes">
+      <form class="form-bot-lat" action="/repespecifico" method="POST">
+        <div class="grupo">
+          <button class="boton-invisible" type="submit">
+            <label class="text-sele" for="inputGroupSelect01">Elegir</label>
+          </button>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" name="selec-año">
+          <option selected="true">Año</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+        </select>
+        <select class="custom-select" id="inputGroupSelect02" name="selec-emp">
+          <option selected="true">Empleados</option>
+          {% for fila in emp %}
+          <tr>
+            <option value="{{fila.Id_Usuario}}">{{ fila.Nombre }}</option>
+          </tr>
+          {% endfor %}
+        </select>
+        <select class="custom-select" id="inputGroupSelect03" name="selec-pro">
+          <option selected="true">Proyectos</option>
+          {% for fila in pro %}
+          <tr>
+            <option value="{{fila.Id_Proyecto}}">
+              {{ fila.NombreProyecto}}
+            </option>
+          </tr>
+          {% endfor %}
+        </select>
+      </form>
+    </div>
+    <div class="div-card">
+      {%if rep %} {%if encontrar_rep%}
+      <script>
+        function salida3() {
+          swal('Busqueda exitosa', '', 'success')
+          var solicitud = document.querySelector('.div-reportes')
+          solicitud.style.display = 'block'
+          return false
+        }
+
+        salida3()
+      </script>
+      {%endif%} {%for list in rep %}
+      <div class="cartas">
+        <img class="imagen-rep" src="{{list.Imagen}}" alt="Card image cap" width="365px" height="200px" />
+        <div class="card">
+          <p>Titulo Reporte: {{list.Titulo}}</p>
+          <p>Porcentaje: {{list.Porcentaje}}</p>
+          <p>Descripcion: {{list.Descripcion}}</p>
+          <p>Cliente: {{list.Cliente}}</p>
+          <p>Correo: {{list.Correo}}</p>
+          <p>Hora Ingreso: {{list.HoraIngreso}}</p>
+          <p>Hora Egreso: {{list.HoraEgreso}}</p>
+          <p>Empleado: {{list.Nombre}}</p>
+          <a href="{{ url_for( 'reporteprint' ,rep=list.Id_Reporte) }}">
+            <box-icon type="solid" name="file-pdf"></box-icon>
+          </a>
+        </div>
+      </div>
+      {%endfor%} {%elif encontrar_rep == ""%}
+      <script>
+        function salida4() {
+          var solicitud = document.querySelector('.div-reportes')
+          if (solicitud.style.display === 'block') {
+            return false
+          } else {
+            swal('No se Encontraron resultados', '', 'error')
+            solicitud.style.display = 'block'
+          }
+
+          return false
+        }
+
+        salida4()
+      </script>
+      {%endif%}
+    </div>
+  </div>
+  <div class="div-reportes-llenar" style="display: none;">
+    <label class="texto-encabezado-nav">Generar Reporte</label>
+    <a class="close" href="#" onclick="reportellen()">&times;</a>
+    <hr />
+    <br />
+    <form action="/reporte" method="POST" enctype="multipart/form-data">
+      <div class="contenedor-input">
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Nombre Tarea</label>
+          <br />
+          <br />
+          <input type="text" class="cajas" name="tarea" id="exampleFormControlInput1" placeholder="Nombre" value="" />
+        </div>
+        <div class="form-group">
+          <label class="labels" for="exampleFormControlInput1">Cliente:</label>
+
+          <div class="sele-mes">
+            <select class="custom-select" id="inputGroupSelect02" name="cliente">
+              <option selected="true">Clientes</option>
+              {% for fila in cli%}
+              <tr>
+                <option value="{{fila.Nombre}}">{{ fila.Nombre}}</option>
+              </tr>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Contacto</label>
+          <br />
+          <br />
+          <input type="text" class="cajas" name="contacto" id="exampleFormControlInput1" placeholder="Contacto"
+            value="" />
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Correo Electrónico</label>
+          <br />
+          <br />
+          <input type="email" class="cajas" name="correo" id="exampleFormControlInput1" placeholder="Correo Electrónico"
+            value="" />
+        </div>
+        <div class="form-group">
+          <label class="labels" for="inputGroupSelect02">Proyecto:</label>
+          <div class="sele-mes">
+            <select class="custom-select" id="inputGroupSelect02" name="selec-pro">
+              <option selected="true">Proyectos</option>
+              {% for fila in pro %}
+              <tr>
+                <option value="{{fila.Id_Proyecto}}">
+                  {{ fila.NombreProyecto}}
+                </option>
+              </tr>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="input-12-hour">Hora Ingreso</label>
+          <br />
+          <br />
+          <div>
+            <input id="horaing" value="" name="horaent" class="cajas" data-default="08:45" />
+          </div>
+          <script>
+            var input1 = $('#horaing')
+            input1.clockpicker({
+              twelvehour: true,
+              donetext: 'Hecho',
+            })
+          </script>
+        </div>
+        <div class="form-group">
+          <label for="horaeg">Hora Egreso</label>
+          <br />
+          <br />
+          <div>
+            <input id="horaeg" value="" name="horasal" class="cajas" data-default="08:45" />
+          </div>
+          <script>
+            var input1 = $('#horaeg')
+            input1.clockpicker({
+              twelvehour: true,
+              donetext: 'Hecho',
+            })
+          </script>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Porcentaje Completado</label>
+          <br />
+          <br />
+          <input type="number" class="cajas" name="porcentaje" id="exampleFormControlInput1" placeholder="Porcentaje"
+            value="" />
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Descripción</label>
+          <br />
+          <br />
+          <textarea class="cajas" name="descripcion" id="exampleFormControlTextarea1" rows="3" value=""></textarea>
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlFile1">
+            Insertar Imagen de los Avances
+          </label>
+          <br />
+          <br />
+          <input type="file" class="form-control-file" name="imagen" id="exampleFormControlFile1" value="" />
+        </div>
+        <button type="submit" class="enviar">Enviar</button>
+      </div>
+    </form>
+  </div>
+  <div class="div-tareas">
+    <label class="texto-encabezado-nav">Tarea</label>
+
+    <hr />
+    <div class="tareas">
+      {%if var1 %}
+      <h2>Proyecto: {{var1[0].NombreProyecto}}</h2>
+      <p>Empleado a Cargo: {{var1[0].Nombre}}</p>
+      <table class="custab">
+        <thead>
+          <tr>
+            <th>Nombre Tarea</th>
+            <th>Fecha Inicio</th>
+            <th>Fecha Fin</th>
+            <th>Descripcion</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody class="cuerpo-tabla">
+          {%for fila in var1%} {%if fila%}
+          <tr>
+            <td>{{ fila.Titulo }}</td>
+            <td>{{ fila.FechaInicioEstimado}}</td>
+            <td>{{ fila.FechaFinEstimado}}</td>
+            <td>{{ fila.Descripcion}}</td>
+            {% if fila.NombreEstado == "Completado"%}
+            <td class="completo">
+              <text class="textoc">{{ fila.NombreEstado}}</text>
+            </td>
+            {% elif fila.NombreEstado == "Incompleto"%}
+            <td class="incompleto">
+              <text class="textoi">{{ fila.NombreEstado}}</text>
+            </td>
+            {%else%}
+            <td class="progreso">
+              <text class="textop">{{ fila.NombreEstado}}</text>
+            </td>
+            {% endif%}
+          </tr>
+          {%else%} {%endif%}{% endfor %}
+        </tbody>
+      </table>
+      <a href="{{url_for( 'ejecucion')}}">Ver mas</a>
+
+      {%else%}
+      <h2>No se encontraron tareas</h2>
+      <a href="{{url_for( 'ejecucion')}}">Ver mas</a>
+      {%endif%}
+    </div>
+  </div>
+  <div class="div-acta" style="display: none;">
+    <label class="texto-encabezado-nav">Acta de Entrega</label>
+    <a class="close" href="#" onclick="acta()">&times;</a>
+    <hr />
+    <a class="opc-reporte" href="#" onclick="acta_historial()">Historial</a>
+    <br />
+    <form action="/acta" method="POST" enctype="multipart/form-data">
+      <div class="contenedor-input">
+        <div class="form-group">
+          <label class="labels" for="inputGroupSelect02">Proyecto:</label>
+          <div class="sele-mes">
+            <select class="custom-select" id="inputGroupSelect02" name="selec-pro">
+              <option selected="true">Proyectos</option>
+              {% for fila in pro %}
+              <tr>
+                <option value="{{fila.Id_Proyecto}}">
+                  {{ fila.NombreProyecto}}
+                </option>
+              </tr>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="labels" for="inputGroupSelect02">Estado:</label>
+          <div class="sele-mes">
+            <select class="custom-select" id="inputGroupSelect02" name="selec-est">
+              <option selected="true">Estados</option>
+              <tr>
+                <option value="1">Completado</option>
+                <option value="3">Incompleto</option>
+                <option value="2">En Progreso</option>
+              </tr>
+            </select>
+          </div>
+        </div>
+        <br />
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Fecha Finalizacion</label>
+          <br />
+          <br />
+          <input type="date" class="cajas" name="fechafin" id="exampleFormControlInput1"
+            placeholder="Fecha Finalizacion" value="" />
+        </div>
+        <div class="form-group">
+          <label for="horaeg">Hora Finalizacion</label>
+          <br />
+          <br />
+          <div>
+            <input id="horafin" value="" name="horafin" class="cajas" data-default="08:45" />
+          </div>
+          <script>
+            var input1 = $('#horafin')
+            input1.clockpicker({
+              twelvehour: true,
+              donetext: 'Hecho',
+            })
+          </script>
+        </div>
+
+        <div class="form-group">
+          <label for="exampleFormControlTextarea1">Observaciones</label>
+          <br />
+          <br />
+          <textarea class="cajas" name="observaciones" id="exampleFormControlTextarea1" rows="3" value=""></textarea>
+        </div>
+
+        <button type="submit" class="enviar">Enviar</button>
+      </div>
+    </form>
+  </div>
+  <div class="div-acta-print" style="display: none;">
+    <label class="texto-encabezado-nav">Historial de Actas</label>
+    <a class="close" href="#" onclick="acta_historial()">&times;</a>
+
+    <hr />
+    <div class="sele-mes">
+      <form class="form-bot-lat" action="/actaespecifica" method="POST">
+        <div class="grupo">
+          <button class="boton-invisible" type="submit">
+            <label class="text-sele" for="inputGroupSelect01">Elegir</label>
+          </button>
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" name="selec-año">
+          <option selected="true">Año</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+        </select>
+        <div class="input-group rounded">
+          <input type="search" name="codigo" class="form-control rounded" placeholder="Codigo Proveedor"
+            aria-label="Search" aria-describedby="search-addon" />
+          <span class="input-group-text border-0" id="search-addon">
+            <i class="fas fa-search"></i>
+          </span>
+        </div>
+      </form>
+    </div>
+    <div class="div-card">
+      {%if acta%} {%if encontrar%}
+      <script>
+        function salida1() {
+          swal('Busqueda exitosa', '', 'success')
+          var solicitud = document.querySelector('.div-acta-print')
+          solicitud.style.display = 'block'
+          return false
+        }
+
+        salida1()
+      </script>
+
+      {%endif%} {%for list in acta %}
+      <div class="cartas">
+        <img class="imagen-rep" src="{{list.Logo}}" alt="Card image cap" width="365px" height="200px" />
+        <div class="card">
+          <p>Proyecto: {{list.NombreProyecto}}</p>
+          <p>Fecha Finalización: {{list.FechaFin}}</p>
+          <p>Hora Finalización: {{list.HoraFin}}</p>
+          <p>Observaciones: {{list.Observaciones}}</p>
+          <p>Estado: {{list.NombreEstado}}</p>
+          <p>Generado por: {{list.Nombre}} {{list.Apellido}}</p>
+          <a href="{{ url_for( 'actaprint' ,acta=list.Id_Acta) }}">
+            <box-icon type="solid" name="file-pdf"></box-icon>
+          </a>
+        </div>
+      </div>
+      {%endfor%} {%elif encontrar == ""%}
+      <script>
+        function salida2() {
+          var solicitud = document.querySelector('.div-acta-print')
+          if (solicitud.style.display === 'block') {
+            return false
+          } else {
+            swal('No se Encontraron resultados', '', 'error')
+            solicitud.style.display = 'block'
+          }
+
+          return false
+        }
+
+        salida2()
+      </script>
+      {%endif%}
+    </div>
+  </div>
+</main>
+{%else%}
+<!-- VISTA DE EMPLEADOS -->
+<main class="main-cont">
+  <div class="div-listaproyecto">
+    <label class="texto-encabezado-nav">Mis Proyectos</label>
+    <hr />
+    <div class="container-emp">
+      <div class="tabla-emp">
+        <form action="/modals" method="POST">
+          <table class="custab-emp">
+            <thead>
+              <tr>
+                <th>ID Proyecto</th>
+                <th>Nombre Proyecto</th>
+                <th>Fecha Inicio</th>
+                <th>Fecha Fin</th>
+                <th>Estado</th>
+                <th>Responsable</th>
+              </tr>
+            </thead>
+            <tbody class="cuerpo-tabla-emp">
+              {% for fila in proUser %}
+              <tr>
+                <td>{{ fila.Id_Proyecto }}</td>
+                <td>{{ fila.NombreProyecto}}</td>
+                <td>{{ fila.FechaHoraInicio}}</td>
+                {% if fila.FechaHoraFin == "NULL"%}
+                <td>--</td>
+                {%else%}
+                <td>{{ fila.FechaHoraFin}}</td>
+                {% endif%} {% if fila.NombreEstado == "Completado"%}
+                <td class="completo">
+                  <text class="textoc">{{ fila.NombreEstado}}</text>
+                </td>
+                {% elif fila.NombreEstado == "Incompleto"%}
+                <td class="incompleto">
+                  <text class="textoi">{{fila.NombreEstado}}</text>
+                </td>
+                {%else%}
+                <td class="progreso">
+                  <text class="textop">{{fila.NombreEstado}}</text>
+                </td>
+                {% endif%}
+                <td>{{ fila.Nombre}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+    <div class="tareas-emp">
+      <label class="texto-encabezado-nav">Tareas Pendiente</label>
+      <hr />
+      <div class="container-emp">
+        <div class="tabla-emp">
+          <form action="/modals" method="POST">
+            <table class="custab">
+              <thead>
+                <tr>
+                  <th>Nombre Tarea</th>
+                  <th>Fecha Inicio</th>
+                  <th>Fecha Fin</th>
+                  <th>Descripcion</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody class="cuerpo-tabla">
+                {%for fila in tar%} {%if fila%}
+                <tr>
+                  <td>{{ fila.Titulo }}</td>
+                  <td>{{ fila.FechaInicioEstimado}}</td>
+                  <td>{{ fila.FechaFinEstimado}}</td>
+                  <td>{{ fila.Descripcion}}</td>
+                  {% if fila.NombreEstado == "Completado"%}
+                  <td class="completo">
+                    <text class="textoc">{{ fila.NombreEstado}}</text>
+                  </td>
+                  {% elif fila.NombreEstado == "Incompleto"%}
+                  <td class="incompleto">
+                    <text class="textoi">{{ fila.NombreEstado}}</text>
+                  </td>
+                  {%else%}
+                  <td class="progreso">
+                    <text class="textop">{{ fila.NombreEstado}}</text>
+                  </td>
+                  {% endif%}
+                </tr>
+                {%else%} {%endif%}{% endfor %}
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="div-grafico">
+    <label class="texto-encabezado-nav">Mis Estadísticas</label>
+    <hr />
+
+    <div class="tareas">
+      <p>Tareas Completadas:</p>
+      <p>Tareas Pendientes:</p>
+      <p>Horas Logeadas:</p>
+    </div>
+    <label class="texto-encabezado-nav">Mis Reportes</label>
+    <hr />
+    <div class="tareas">
+      {%for fila in repemp%}
+
+      <p>
+        Reporte N° {{fila.Id_Reporte}}
+        <a class="imp" href="{{ url_for( 'reporteprint' ,rep=fila.Id_Reporte) }}">
+          <box-icon type="solid" name="file-pdf"></box-icon>
+        </a>
+      </p>
+      <p>{{fila.Titulo}}</p>
+
+      {%endfor%}
+    </div>
+    <label class="texto-encabezado-nav">Mis Solicitudes</label>
+    <hr />
+
+    <div class="tareas">
+      {%for fila in soliemp%}
+      <p>Solicitud {{fila.Id_Solicitud}}: {{fila.Titulo}}</p>
+      {%endfor%}
+    </div>
+  </div>
+  <div class="div-solicitud">
+    <label class="texto-encabezado-nav">Solicitud</label>
+    <a class="close" href="#" onclick="solicitud()">&times;</a>
+    <hr />
+    <form action="/solicitud" method="POST">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Nombre</label>
+        <input type="text" class="form-control" name="nombre" id="exampleFormControlInput1" placeholder="Nombre" />
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Titulo Solicitud</label>
+        <input type="text" class="form-control" name="titulo" id="exampleFormControlInput1" placeholder="Titulo" />
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Justificación</label>
+        <textarea class="form-control" name="justificacion" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+      <div class="col text-center">
+        <button type="submit" class="btn btn-primary" type="submit">
+          Enviar
+        </button>
+      </div>
+    </form>
+  </div>
+  <div class="div-notificacion" style="display: none;">
+    <label class="texto-encabezado-nav">Notificaciones</label>
+    <a class="close" href="#" onclick="notificacion()">&times;</a>
+    <hr />
+    <div class="container">
+      {% if soli%} {%set mostrarnotemp = [] %} {% for list in soli %} {% if
+      list.NombreEstado == "Aceptado" and list.Vigencia == 1%} {%do
+      mostrarnotemp.append(1)%}{% endif%} {%endfor%} {% if mostrarnotemp %}
+      <a href="#" OnClick="notificacion1emp()">Tiene una Solicitud Aprobada</a>
+      {%else%}
+      <p>sin notificaciones</p>
+      {% endif%} {%else%}
+      <p>sin notificaciones</p>
+      {% endif%}
+    </div>
+  </div>
+  <div class="div-notificacion1emp" style="display: none;">
+    <label class="texto-encabezado-nav">Notificaciones</label>
+    <a class="close" href="#" onclick="notificacion1emp()">&times;</a>
+    <div class="container">
+      <div class="tabla">
+        <form action="/Vernot" method="POST">
+          <table class="custab">
+            <thead>
+              <tr>
+                <th>ID Solicitud</th>
+                <th>Nombre</th>
+                <th>Titulo</th>
+                <th>justificacion</th>
+                <th>Fecha Solicitud</th>
+                <th>Estado</th>
+                <th class="text-center">Accción</th>
+              </tr>
+            </thead>
+            <tbody class="cuerpo-tabla">
+              {% for fila in soli %} {%if fila.NombreEstado == "Aceptado" and
+              fila.Vigencia == 1 %}
+              <tr>
+                <td>{{ fila.Id_Solicitud }}</td>
+                <td>{{ fila.Nombre}}</td>
+                <td>{{ fila.titulo}}</td>
+                <td>{{ fila.Justificacion}}</td>
+                <td>{{ fila.FechaSoli}}</td>
+                <td>{{ fila.NombreEstado}}</td>
+                <td class="text-center">
+                  <button class="boton-invisible" name="resp" value="0" type="submit">
+                    <box-icon name="check-circle" type="solid" color="#58a257"></box-icon>
+                  </button>
+                </td>
+              </tr>
+              {%endif%} {% endfor %}
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="div-reportes-llenar1">
+    <label class="texto-encabezado-nav">Generar Reporte</label>
+    <a class="close" href="#" onclick="reportellen1()">&times;</a>
+    <hr />
+    <br />
+    <form id="addReport1" enctype="multipart/form-data">
+      <div class="contenedor-input">
+        <label class="labels" for="exampleFormControlInput1">
+          Nombre Tarea:
+        </label>
+        <br />
+        <input type="text" class="cajas" name="tarea" id="exampleFormControlInput1" required placeholder="Nombre"
+          value="" />
+      </div>
+      <label class="labels" for="inputGroupSelect01">Proyecto:</label>
+      <select class="custom-select" id="inputGroupSelect01" name="selec-pro">
+        <option selected="true">Proyectos</option>
+        {% for fila in pro %}
+        <tr>
+          <option value="{{fila.Id_Proyecto}}">{{ fila.NombreProyecto}}</option>
+        </tr>
+        {% endfor %}
+      </select>
+      <div class="contenedor-input">
+        <label class="labels" for="inputGroupSelect02">Cliente:</label>
+        <select class="custom-select" id="inputGroupSelect02" name="cliente">
+          <option selected="true">Clientes</option>
+          {% for fila in cli%}
+          <tr>
+            <option value="{{fila.Nombre}}">{{ fila.Nombre}}</option>
+          </tr>
+          {% endfor %}
+        </select>
+      </div>
+
+      <div class="contenedor-input">
+        <label class="labels" for="exampleFormControlInput1">Contacto:</label>
+        <br />
+        <input type="text" class="cajas" name="contacto" id="exampleFormControlInput1" required placeholder="Contacto"
+          value="" />
+      </div>
+      <div class="contenedor-input">
+        <label class="labels" for="exampleFormControlInput1">
+          Correo Electrónico:
+        </label>
+        <br />
+        <input type="email" class="cajas" name="correo" id="exampleFormControlInput1" required
+          placeholder="Correo Electrónico" value="" />
+      </div>
+      <div class="contenedor-input">
+        <label class="labels" for="exampleFormControlInput1">
+          Hora Ingreso:
+        </label>
+        <br />
+        <input type="datetime" class="cajas" name="horaent" id="exampleFormControlInput1" required
+          placeholder="Hora Ingreso" value="" />
+      </div>
+      <div class="contenedor-input">
+        <label class="labels" for="exampleFormControlInput1">
+          Hora Egreso:
+        </label>
+        <br />
+        <input type="datetime" class="cajas" name="horasal" id="exampleFormControlInput1" required
+          placeholder="Hora Egreso" value="" />
+      </div>
+      <div class="contenedor-input">
+        <label class="labels" for="exampleFormControlInput1">
+          Porcentaje Completado:
+        </label>
+        <br />
+        <input type="number" class="cajas" name="porcentaje" id="exampleFormControlInput1" required
+          placeholder="Porcentaje" value="" />
+      </div>
+      <div class="contenedor-input">
+        <label class="labels" for="exampleFormControlTextarea1">
+          Descripción:
+        </label>
+        <br />
+        <textarea class="cajas" name="descripcion" id="exampleFormControlTextarea1" required rows="3"
+          value=""></textarea>
+      </div>
+      <div class="contenedor-input">
+        <label for="exampleFormControlFile1">
+          Insertar Imagen de los Avances:
+        </label>
+        <br />
+        <br />
+        <input type="file" name="imagen" id="exampleFormControlFile1" value="" required />
+      </div>
+      <!-- <label for="firma">Firma Digital</label>
+      <canvas
+        id="firma"
+        style="display: block; border: 1px solid #3a90ad; margin-left: 200px;"
+      ></canvas>
+
+      <br />
+      <div style="text-align: center;">
+        <input type="button" id="reset1" value="Limpiar" />
+      </div> -->
+
+      <button type="button" onclick="saveReport1(event)" class="enviar">
+        Enviar
+      </button>
+    </form>
+  </div>
+
+
+  <div class="perfil" style="display:none;">
+    <label class="texto-encabezado-nav">Información del Usuario</label>
+    <hr />
+    <br>
+
+    <form id="nuevoemp" class="form-bot-lat" action="/actualizardatos" method="POST">
+      <div class="input">
+        {%for fila in emp%}
+        <div class="row mb-4">
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form3Example1">Id</label>
+              <input type="text" id="form3Example1" name="id" value="{{fila.Id_Empleado}}" required readonly
+                class="form-control" />
+
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form3Example1">Nombre</label>
+              <input type="text" id="form3Example1" name="nombre" value="{{fila.Nombre}}" required
+                class="form-control" />
+
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form3Example2">Apellido</label>
+              <input type="text" id="form3Example2" name="apellido" value="{{fila.Apellido}}" required
+                class="form-control" />
+
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form3Example3">Cédula</label>
+              <input type="text" id="form3Example3" name="cedula" value="{{fila.Cedula}}" required
+                class="form-control" />
+
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form3Example3">Teléfono</label>
+              <input type="number" id="form3Example3" name="telefono" value="{{fila.Telefono}}" required
+                class="form-control" />
+
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="form3Example3">Salario</label>
+              <input type="number" id="form3Example3" name="salario" value="{{fila.salario}}" required
+                class="form-control" />
+
+            </div>
+          </div>
+        </div>
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form3Example4">Dirección</label>
+          <textarea class="form-control" name="direccion" required id="exampleFormControlTextarea1"
+            rows="3">{{fila.Direccion}}</textarea>
+
+        </div>
+        <div class="form-outline mb-4">
+          <select class="custom-select" id="validationCustom04" name="rol">
+            {%if fila.fechacontrato == 1 %}
+            <option value="1" selected="true">Administrador</option>
+            <option value="0">Usuario</option>
+            {%else%}
+            <option value="1">Administrador</option>
+            <option value="0" selected="true">Usuario</option>
+            {%endif%}
+          </select>
+        </div>
+        <div class="row mb-4">
+          <div class="col">
+            <div class="form-outline">
+              <label class="form-label" for="fecha">Fecha de Contrato</label>
+              <input type="date" id="fecha" name="fechacontrato" value="{{fila.fechacontrato}}" required disabled
+                class="form-control" />
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline mb-4">
+              <label class="form-label" for="validationCustom04">Talla de Camisa</label>
+              <select class="custom-select" id="validationCustom04" id="camisa1" name="camisa">
+                <option value="{{fila.CamisaTalla}}" selected="true">{{fila.CamisaTalla}}</option>
+                <option value="S">S</option>
+                <option value="M">M</option>
+                <option value="L">L</option>
+                <option value="X">X</option>
+                <option value="XL">XL</option>
+                <option value="XXL">XXL</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-outline mb-4">
+              <label class="form-label" for="validationCustom04">Talla de Zapatos</label>
+              <input type="number" id="form3Example1" name="tallazapato" value="{{fila.ZapatoTalla}}" required
+                class="form-control" />
+            </div>
+          </div>
+        </div>
+        <div class="row mb-4">
+          <div class="col">
+            <div class="form-outline mb-4">
+              <label class="form-label" for="validationCustom04">Puesto</label>
+              <select class="custom-select" id="validationCustom04" id="puesto1" name="puesto">
+                <option value="{{fila.Cargo}}" selected="true">{{fila.Cargo}}</option>
+                <option value="Bodega" selected="true">Bodega</option>
+                <option value="Electricista">Electrico</option>
+                <option value="Programador">Programador</option>
+                <option value="Secretaria">Secretaria</option>
+
+              </select>
+            </div>
+          </div>
+        </div>
+        <br><br><br>
+        {%endfor%}
+        <button class="enviar" type="submit">Actualizar</button>
+      </div>
+    </form>
+  </div>
+
+  <!--Modal reporte -->
+  <div class="modal" id="modalReporte">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Reportes</h4>
+          <button type="button" class="close" data-dismiss="modal">
+            &times;
+          </button>
+        </div>
+
+        <!-- Modal body -->
+        <div class="modal-body">
+          Modal body..
+        </div>
+
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endif%}{% endif%}
+<!-- AQUI ESTA EL DIV PARA IMPRIMIR LOS PDFS -->
+
+{%if actesp%}
+<div class="div-verpdf-acta" style="display: none;">
+  <div class="encabezado-pdf-acta">
+    <img src="../static/Imagenes/Logo SCISA V2.png" alt="" width="150px" height="100px" />
+
+    <div class="titulo-pdf-acta">
+      <label class="first-line" for="">
+        SERVICIO DE CONSULTORIA E INGENIERIA S.A
+      </label>
+      <p class="second-line">
+        Bo Manolo Morales Esc Villa Venezuela 1C Oeste 4C Sur 20
+        <br />
+        Vrs Oeste. Managua Nicaragua.
+      </p>
+    </div>
+    {%for list in actesp%}
+    <div style="margin-left: 5px; margin-top: 15px;">
+      <img src="{{list.Logo}}" alt="" width="150px" height="70px" />
+    </div>
+    {%endfor%}
+  </div>
+  <hr class="hr-div-acta" />
+  <div class="info-acta">
+    {%for list in actesp%}
+    <label class="titulo-acta" for="">ACTA DE ENTREGA</label>
+
+    <br />
+    <div class="tabla-acta1">
+      <table class="tabla-acta">
+        <tbody>
+          <tr>
+            <th>Codigo de Documento:</th>
+            <td>SCISA-{{list.CodigoCot}}-{{list.Id_Acta}}</td>
+          </tr>
+          <tr>
+            <th>Proyecto:</th>
+            <td>{{list.NombreProyecto}}</td>
+          </tr>
+          <tr>
+            <th>Cliente:</th>
+            <td>{{list.NombreCliente}} {{list.ApellidoCliente}}</td>
+          </tr>
+          <tr>
+            <th>Fecha:</th>
+            <td>{{fecha}}</td>
+          </tr>
+          <tr>
+            <th>Proveedor:</th>
+            <td>{{list.CodigoProv}}</td>
+          </tr>
+          <tr>
+            <th>RUC:</th>
+            <td>#J0310000337950</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <br />
+    <div class="texto-acta">
+      <p class="sin-neg">
+        Los abajo firmantes, {{list.NombreCliente}} {{list.ApellidoCliente}}, en
+        representación de {{list.Compañia}} y el lng. Yamil Jimenez, Jefe de
+        Automatización e instrumentación, quien actúa en representación de
+        SCISA; reunidos en el sitio del proyecto "
+        <a class="resaltar">{{list.NombreProyecto}}</a>
+        ", ubicado en la ciudad Managua.
+      </p>
+      <p class="sin-neg">
+        <a class="resaltar">Hacemos Constar:</a>
+        <br />
+        Que después de hacer un recorrido por las instalaciones del Proyecto y
+        haber realizado inspección en la obra según el alcance del contrato
+        <a class="resaltar">{{list.CodigoCot}}</a>
+        , se verificó los alcances y especificaciones técnicas enumerados:.
+      </p>
+      {%for lista in taracta%}
+      <p class="sin-neg">{{loop.index}}. {{lista.Titulo}}</p>
+      {%endfor%}
+      <p class="sin-neg">
+        Por lo tanto, procedemos a efectuar Recepción Final de las obras
+        ejecutadas; encontrándose estas finalmente concluidas a entera
+        satisfacción del dueño y de conformidad con los términos expresados en
+        la oferta técnico-económica.
+      </p>
+      <p class="sin-neg">
+        En fé de lo anterior suscribímos la presente Acta de Recepción Final en
+        dos tantos de un mismo tenor al día {{list.FechaFin}} a las
+        {{list.HoraFin}}
+      </p>
+    </div>
+    <br />
+    {%if list.Observaciones%}
+    <strong>Observaciones</strong>
+    <br />
+    {{list.Observaciones}}
+    <br />
+    {%else%} {%endif%}
+    <label id="p1">{{list.Id_Acta}}</label>
+    <p>Recibi conforme:</p>
+    <br />
+    <div class="firmas-abajo">
+      <hr class="firma-raya" />
+      <p class="texto-firma">{{list.Compañia}}</p>
+      <img class="firma-raya-arriba" src="{{list.Firma}}" />
+      <hr class="firma-raya2" />
+      <p class="texto-firma2">SERVICIO DE CONSULTORIA E INGENIERIA</p>
+    </div>
+    <br />
+    <br />
+    <br />
+    <hr class="hr-div-acta2" />
+    <div>
+      <p class="footer-acta">
+        Tel.: (505)2280-3675/ Cel.: (505) 82911828 • E-mail:info@scisa.com.ni
+      </p>
+    </div>
+    {%endfor%}
+  </div>
+  <script>
+    addEventListener('DOMContentLoaded', () => {
+      validar = document.getElementById('p1').innerHTML
+      if (validar == '') {
+      } else {
+        elementoParaConvertir = document.querySelector('.div-verpdf-acta') // <-- Aquí puedes elegir cualquier elemento del DOM
+        elementoParaConvertir.style.display = 'block'
+        html2pdf()
+          .set({
+            margin: 0.5,
+            filename: 'Acta.pdf',
+            image: {
+              type: 'jpeg',
+              quality: 0.98,
+            },
+            html2canvas: {
+              scale: 3, // A mayor escala, mejores gráficos, pero más peso
+              letterRendering: true,
+            },
+            jsPDF: {
+              unit: 'in',
+              format: 'letter',
+              orientation: 'portrait', // landscape o portrait
+            },
+          })
+
+          .from(elementoParaConvertir)
+          .save()
+        setTimeout(() => {
+          elementoParaConvertir.style.display = 'none'
+          window.location = '../home'
+        }, 1000)
+        validar1 = document.getElementById('p1').innerHTML = ''
+      }
+    })
+  </script>
+  <!----===== FIN HOME ===== -->
+</div>
+{%else%}
+<div class="div-verpdf" style="display: none;">
+  <div class="encabezado-pdf">
+    <img src="../static/Imagenes/Logo SCISA V2.png" alt="" width="200px" height="100px" />
+    <div class="titulo-pdf">
+      <label class="normal" for="">
+        SERVICIO DE CONSULTORIA E INGENIERIA S.A
+      </label>
+      <label class="normal" for="">
+        Manolo Morales Bo Manolo Morales Esc Villa
+      </label>
+      <label class="normal" for="">
+        Venezuela 1C Oeste 4C Sur 20 Vrs Oeste. Managua Nicaragua
+      </label>
+    </div>
+  </div>
+
+  <div class="tabla-pdf">
+    {%for list in repesp%}
+    <label class="no" for="">No:{{list.Id_Reporte}}</label>
+    <br />
+    <label class="normal" for="">
+      Hoja de Servicio Departamento Técnico - Nicaragua
+    </label>
+    <label class="fecha" for="">Fecha:{{fecha}}</label>
+
+    <hr class="principal" />
+  </div>
+  <div class="info">
+    <label class="titulo" for="">EQUIPO</label>
+    <hr class="hr-titulo" />
+    <label id="p1">{{list.Id_Reporte}}</label>
+    <p>Titulo Reporte:{{list.Titulo}}</p>
+    <p>Proyecto:{{list.NombreProyecto}}</p>
+    <p>Porcentaje:{{list.Porcentaje}}</p>
+    <p>Descripcion: {{list.Descripcion}}</p>
+    <p>Cliente:{{list.Cliente}}</p>
+    <p>Correo:{{list.Correo}}</p>
+    <p>Hora Ingreso: {{list.HoraIngreso}}</p>
+    <p>Hora Egreso: {{list.HoraEgreso}}</p>
+    <p>Empleado: {{list.Nombre}}</p>
+    <p>Imagen:</p>
+    <img src="{{list.Imagen}}" alt="" width="200px" height="100px" />
+    <p>Firma:</p>
+    <img src="{{list.Firma}}" />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    {%endfor%}
+  </div>
+  <script>
+    addEventListener('DOMContentLoaded', () => {
+      validar = document.getElementById('p1').innerHTML
+      if (validar == '') {
+      } else {
+        elementoParaConvertir = document.querySelector('.div-verpdf') // <-- Aquí puedes elegir cualquier elemento del DOM
+        elementoParaConvertir.style.display = 'block'
+        html2pdf()
+          .set({
+            margin: 0.5,
+            filename: 'Reporte.pdf',
+            image: {
+              type: 'jpeg',
+              quality: 0.98,
+            },
+            html2canvas: {
+              scale: 3, // A mayor escala, mejores gráficos, pero más peso
+              letterRendering: true,
+            },
+            jsPDF: {
+              unit: 'in',
+              format: 'letter',
+              orientation: 'portrait', // landscape o portrait
+            },
+          })
+
+          .from(elementoParaConvertir)
+          .save()
+        setTimeout(() => {
+          elementoParaConvertir.style.display = 'none'
+          window.location = '../home'
+        }, 1000)
+        validar1 = document.getElementById('p1').innerHTML = ''
+      }
+    })
+  </script>
+  <!----===== FIN HOME ===== -->
+</div>
+{% endif%} {% endblock %}

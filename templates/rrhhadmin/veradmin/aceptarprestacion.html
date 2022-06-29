@@ -1,0 +1,251 @@
+{% extends "layout.html" %} {% block content %}
+
+<head>
+    <link rel="stylesheet" href="../../../static/diseño.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<div class="text-center mt-4">
+    <label class="h4"><strong>Solicitud de prestacion</strong></label>
+</div>
+
+<div class="tab-content" id="justifyCenterTabContent">
+    <!-- Inicio del formulario de solicitud -->
+    <div class="tab-pane fade show active" id="justify-center-home" role="tabpanel" aria-labelledby="justify-center-home-tab">
+        <p class="dropcap  dc-outline-primary">
+                <div class="text-center my-4">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h5><strong>Tipo de solicitud</strong></h5>
+                    </div>
+                </div>
+                
+        <!--inicio del formulario de epp-->
+        <div class="widget-content widget-content-area">
+        <div class="col col-12">
+            <form name="modpres" id="actpres" method="POST">
+                <input id="nombres" type="hidden" name="id"  value="{{info[0].idprestacion}}">
+                <input id="acept" type="hidden" name="aceptado">
+                
+                    <div class="row col-12 d-flex justify-content-around mb-4">
+                        {% if info[0].tipo == "prestamo" %}
+                        <div class="custom-control custom-radio col-4">
+                            <input type="radio" id="rbtAdelanto" name="customRadio" value="adelanto"
+                                class="custom-control-input" disabled>
+                            <label class="custom-control-label" for="rbtAdelanto">Adelanto de salario</label>
+                        </div>
+                        <div class="custom-control custom-radio mb-2 col-3">
+                            <input type="radio" id="rbtPrestamo" name="customRadio" value="prestamo"
+                                class="custom-control-input" checked="true" disabled>
+                            <label class="custom-control-label" for="rbtPrestamo">Préstamo</label>
+                        </div>
+
+                        <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                                <p>Nombres</p>
+                                <input id="nombres" type="text" name="nombre" placeholder="Ingrese su nombre" disabled value="{{info[0].Nombres}}"
+                                    class="form-control">
+                            </div>
+                        
+                            <div class="form-group col-6 ml-0 pl-0" id="container-user">
+                                <p>Apellidos</p>
+                                <input id="apellidos" type="text" name="apellido" placeholder="Ingrese sus apellidos" disabled value="{{info[0].Apellidos}}"
+                                    class="form-control" >
+                            </div>   
+                        </div>
+                        
+                        <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <div id="vermontoprestamo1" class="form-group col-6 ml-0 pl-0" id="container-monto">
+                                <p>Monto a solicitar (C$)</p>
+                                <input id="ver-montopr1" type="number" name="montopr" placeholder="Monto" value="{{info[0].Monto}}" min="1" step="0.01"
+                                class="form-control" disabled requerid>    
+                            </div>
+                            
+                            <div id="vercuotas1" class="form-group col-6 ml-0 pl-0 mr-0 pr-0">
+                                <p>Cantidad de cuotas (por mes)</p>
+                                <input id="ver-cuota1" type="number" name="cuota" min = "1" max = "12" value="{{info[0].cuotas}}" placeholder="Cantidad de cuotas a pagar"
+                                    class="form-control" disabled>
+                            </div>
+                        </div>
+
+                        <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <div class="form-group col-6 ml-0 pl-0" id="container-monto">
+                                <div class="form-group" id="verconcepto1">
+                                    <p>A concepto de</p>
+                                    <input id="ver-concepto1" type="text" name="concepto" placeholder="Motivo de la solicitud" disabled value="{{info[0].concepto}}"
+                                        class="form-control">
+                                    
+                                </div>
+                               
+                            </div>
+                            <div id="cuotas" class="form-group col-6 ml-0 pl-0 mr-0 pr-0" id="container-cuota">
+                                <p>Fecha de la solicitud</p>
+                            <input id="ced" type="text" name="cedula"  maxlength="16"
+                                class="form-control" disabled value="{{info[0].fecha}}">
+                            </div>
+                        </div>
+                        <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <div id="verinicio1" class="form-group col-6 ml-0 pl-0" id="container-name">
+                                <p>Fecha de inicio de cancelación</p>
+                                <input id="ver-inicio1" type="date" name="inicio" value="{{info[0].inicio}}"
+                                    class="form-control" disabled>
+                            </div>
+                        
+                            <div id="verfinal1" class="form-group col-6 ml-0 pl-0" id="container-user">
+                                <p>Fecha de final de cancelación</p>
+                                <input id="ver-final1" type="date" name="final" value="{{info[0].final}}"
+                                    class="form-control" disabled>
+                            </div>   
+                        </div>
+
+                        <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <!-- <div class="form-group col-6 ml-0 pl-0" id="container-concepto">
+                              <p>Adjunte constacia</p>
+                              <div class="custom-file">
+                                  <input type="file" name="archivo" class="custom-file-input" id="customFile" accept="image/png,image/jpeg" required>
+                                  <label class="custom-file-label" for="customFile">Escoja una imagen</label>
+                                </div>
+                              </div> -->
+      
+                              <div id="pagar" class="form-group col-6 ml-0 pl-0">
+                                  <p>Monto a pagar (por mes)</p>
+                                  <input id="ver-abono" type="number" name="pagar" value="{{info[0].montopago}}" 
+                                      class="form-control" disabled>
+                              </div>
+                          </div>
+
+                        {% elif info[0].tipo == "adelanto" %}
+                        <div class="custom-control custom-radio col-4">
+                            <input type="radio" id="rbtAdelanto" name="customRadio" value="adelanto"
+                                class="custom-control-input" checked="true" disabled>
+                            <label class="custom-control-label" for="rbtAdelanto">Adelanto de salario</label>
+                        </div>
+                        <div class="custom-control custom-radio mb-2 col-3">
+                            <input type="radio" id="rbtPrestamo" name="customRadio" value="prestamo"
+                                class="custom-control-input" disabled>
+                            <label class="custom-control-label" for="rbtPrestamo">Préstamo</label>
+                        </div>
+           
+                        <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                                <p>Nombres</p>
+                                <input id="nombres" type="text" name="nombre" placeholder="Ingrese su nombre" disabled value="{{info[0].Nombres}}"
+                                    class="form-control">
+                            </div>
+                        
+                            <div class="form-group col-6 ml-0 pl-0" id="container-user">
+                                <p>Apellidos</p>
+                                <input id="apellidos" type="text" name="apellido" placeholder="Ingrese sus apellidos" disabled value="{{info[0].Apellidos}}"
+                                    class="form-control" >
+                            </div>   
+                        </div>
+
+                            <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                                <div class="form-group col-6 ml-0 pl-0">
+                                    <div id="vermontoad1" class="form-group">
+                                        <p>Monto a solicitar (C$)</p>
+                                        <input id="ver-montoad1" type="number" name="montoad" min="1" placeholder="Monto" value="{{info[0].Monto}}" disabled
+                                        class="form-control" >
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-6 ml-0 pl-0" id="container-monto">
+                                    <div class="form-group" id="verconceptoad1">
+                                        <p>A concepto de</p>
+                                        <input id="ver-conceptoad1" type="text" name="concepto" placeholder="Motivo de la solicitud" disabled value="{{info[0].concepto}}"
+                                            class="form-control" >
+                                        
+                                    </div>
+                                   
+                                </div>
+                            </div>
+
+                            <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <div id="cuotas" class="form-group col-6 ml-0 pl-0 mr-0 pr-0" id="container-cuota">
+                                    <p>Fecha de solicitud</p>
+                                <input id="ced" type="text" name="cedula" maxlength="16"
+                                    class="form-control" disabled value="{{info[0].fecha}}">
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div style="display: flex; justify-content: center;">
+                        <div class="row justify-content-center mr-2">
+                            <button type="submit" class="btn btn-primary" onclick="val1()"><a style="color: white; text-decoration: none;">Aceptar</a></button>
+                        </div> 
+
+                        <div class="row justify-content-center mr-2 ml-2">
+                            <button type="submit" class="btn btn-primary" onclick="val2()"><a style="color: white; text-decoration: none;">Rechazar</a></button>
+                        </div>
+            
+                        <div class="row justify-content-center ml-2">
+                            <button type="reset" class="btn btn-primary"><a style="color: white; text-decoration: none;" href="/RRHHadmin">Atrás</a></button>
+                        </div>  
+                    </div> 
+            </form>
+        </div>
+        </div>
+        </p>
+    </div>
+    <!-- Fin del formulario de solicitud -->
+</div>
+
+<script>
+    function envio()
+    {
+        document.modpres.submit();
+    }
+    
+    function val1()
+    {
+        document.getElementById("acept").value = 1;
+        event.preventDefault();
+        
+        swal({
+        title: "¿Estás seguro?",
+        text: "Una vez que aceptes esta petición no podra modificarse",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            swal("¡Hecho! La petición ha sido aceptada", {
+            icon: "success",
+            });
+            window.setTimeout(envio, 1000);
+        } else {
+            swal("No se ha modificado la petición");
+            return false;
+        }
+        });
+    }
+
+    function val2()
+    {
+        document.getElementById("acept").value = 2;
+        //ac = document.getElementById("acept").value;
+        //alert('Aceptado vale: '+ ac);
+        event.preventDefault();
+        
+        swal({
+        title: "¿Estás seguro?",
+        text: "Una vez que rechaces esta petición no podra modificarse",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            swal("¡Hecho! La petición ha sido rechezada", {
+            icon: "success",
+            });
+            window.setTimeout(envio, 1000);
+        } else {
+            swal("No se ha modificado la petición");
+            return false;
+        }
+        });
+    }
+</script>
+{% endblock %}

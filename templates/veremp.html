@@ -1,0 +1,327 @@
+{% extends "administracion.html" %} {% block admin %}
+
+<head>
+  <link rel="stylesheet" href="../static/diseño.css" />
+  <link rel="stylesheet" href="../static/acta.css" />
+
+</head>
+{%if accion%}
+<script>
+  function salida5() {
+    swal('Eliminado', '', 'success')
+  }
+
+  salida5()
+</script>
+{%endif%}
+
+<div class="admin">
+  <label class="texto-encabezado-nav">Empleados</label>
+  <a class="opc-reporte" href="#" onclick="añadiremp()">Añadir</a>
+  <hr />
+  <br />
+  <div class="barra-busqueda">
+    <form action="/busquedacli" method="POST">
+      <button type="submit">
+        <box-icon name="search"></box-icon>
+      </button>
+      <input type="text" placeholder=" Busqueda de Empleados" name="busqueda" />
+    </form>
+  </div>
+  <div class="tabla-adm">
+    <table class="custab-emp">
+      <thead>
+        <tr>
+          <th>ID Empleado</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Cedula</th>
+          <th>Direccion</th>
+          <th>Usuario</th>
+          <th>Rol</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="cuerpo-tabla-emp">
+        {% for fila in empinfo %}
+        <tr>
+          <td>{{ fila.Id_Empleado }}</td>
+          <td>{{ fila.Nombre}}</td>
+          <td>{{ fila.Apellido}}</td>
+          <td>{{ fila.Cedula}}</td>
+          <td>{{ fila.Direccion}}</td>
+          <td>{{ fila.Usuario}}</td>
+          {%if fila.Id_Rol == 1%}
+          <td>Administrador</td>
+          {%else%}
+          <td>Usuario</td>
+          {%endif%}
+          <td class="text-center">
+            <a href="{{ url_for( 'aduser' ,info=fila.Id_Empleado) }}">
+              <box-icon name="edit" color="#3075c9"></box-icon>
+            </a>
+          </td>
+          <td class="text-center">
+            <!-- <a class="eliminar">elim</a> -->
+            <a href="{{ url_for( 'eliminaruser' ,info=fila.Id_Empleado) }}">
+              <box-icon name='x-circle' color='#fd0202'></box-icon>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+
+</div>
+<!-- PRUEBA DEL SWEET ALERT DE ALIMINAR -->
+<!-- <script>
+  //Aquí hago que aparezca la alerta acompañado del valor del "id". 
+  addEventListener("DOMContentLoaded", () => {
+    const elem = document.querySelector(".eliminar");
+    elem.addEventListener("click", () => {
+      Swal.fire({
+        text: "¿Eliminar?",
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar"
+      })
+        .then(resultado => {
+          if (resultado.value) {
+            // Hicieron click en "Sí"
+
+          } else {
+            // Dijeron que no
+            console.log("*NO se elimina la venta*");
+          }
+        });
+    });
+  });
+</script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+
+<div class="div-añadiremp" style="display: none;">
+  <label class="texto-encabezado-nav">Añadir Empleado</label>
+
+  <a class="close" href="#" onclick="añadiremp()">&times;</a>
+  <hr />
+  <br />
+  <form action="/añadiremp" method="POST">
+
+    <!-- 2 column grid layout with text inputs for the first and last names -->
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example1">Primer Nombre</label>
+          <input type="text" id="form3Example1" name="nombre" required class="form-control" />
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example2">Segundo Nombre</label>
+          <input type="text" id="form3Example2" name="nombre1" required class="form-control" />
+
+        </div>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example1">Primer Apellido</label>
+          <input type="text" id="form3Example1" name="apellido" required class="form-control" />
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example2">Segundo Apellido</label>
+          <input type="text" id="form3Example2" name="apellido1" required class="form-control" />
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Email input -->
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example3">Cédula</label>
+          <input type="text" id="form3Example3" name="cedula" required class="form-control" />
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example3">Teléfono</label>
+          <input type="number" id="form3Example3" name="telefono" required class="form-control" />
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example3">Salario</label>
+          <input type="number" id="form3Example3" name="salario" value="" required class="form-control" />
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form3Example4">Dirección</label>
+      <textarea class="form-control" name="direccion" required id="exampleFormControlTextarea1" rows="3"></textarea>
+
+    </div>
+    <div class="form-outline mb-4">
+      <label class="form-label" for="validationCustom04">Rol</label>
+      <select class="custom-select" id="validationCustom04" name="rol">
+        <option value="1" selected="true">Administrador</option>
+        <option value="0">Usuario</option>
+      </select>
+    </div>
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example1">Fecha de Contrato</label>
+          <input type="date" id="form3Example1" name="fechacontrato" required class="form-control" />
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="validationCustom04">Talla de Camisa</label>
+          <select class="custom-select" id="validationCustom04" name="camisa">
+            <option value="S" selected="true">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="X">X</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="validationCustom04">Talla de Zapatos</label>
+          <input type="number" id="form3Example1" name="tallazapato" required class="form-control" />
+        </div>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline mb-4">
+          <label class="form-label" for="validationCustom04">Puesto</label>
+          <select class="custom-select" id="validationCustom04" name="puesto">
+            <option value="Bodega" selected="true">Bodega</option>
+            <option value="Electricista">Electrico</option>
+            <option value="Programador">Programador</option>
+            <option value="Secretaria">Secretaria</option>
+          </select>
+        </div>
+      </div>
+      <script>
+        $(document).ready(function () {
+          $("#programador").hide();
+          $("#Secretaria").hide();
+          $("#Bodega").show();
+          $("#Electrico").hide();
+        })
+        $("select")
+          .change(function () {
+            var str = "";
+
+
+            $("select option:selected").each(function () {
+              str = $(this).text();
+            });
+
+            if (str == "Programador") {
+              $("#programador").show();
+              $("#Secretaria").hide();
+              $("#Bodega").hide();
+              $("#Electrico").hide();
+            } else if (str == "Secretaria") {
+              $("#Secretaria").show();
+              $("#Bodega").hide();
+              $("#Electrico").hide();
+              $("#programador").hide();
+            } else if (str == "Electrico") {
+              $("#Electrico").show();
+              $("#programador").hide();
+              $("#Secretaria").hide();
+              $("#Bodega").hide();
+            } else if (str == "Bodega") {
+              $("#Bodega").show();
+              $("#programador").hide();
+              $("#Secretaria").hide();
+              $("#Electrico").hide();
+
+            }
+
+
+          })
+          .change();
+      </script>
+
+    </div>
+    <div class="row mb-4">
+      <div class="col" id="programador">
+        <a class="titulo"><strong>Cargo: </strong> Programador</a>
+        <br>
+        <a class="titulo">Actividades: </a>
+        <p class="sin-neg">Escribir y probar código para nuevos programas. <br>
+          Actualizar programas. <br>
+          Identificar y corregir errores de código.</p>
+        <br>
+        <a class="titulo">Habilidades:</a>
+        <p class="sin-neg">WEB Developer <br>
+          Backend</p>
+      </div>
+      <div class="col" id="Secretaria">
+        <a class="titulo"><strong>Cargo: </strong> Secretari@</a>
+        <br>
+        <a class="titulo">Actividades: </a>
+        <p class="sin-neg">Administración de agenda. <br>
+          Atención al público. <br>
+          Administración de documentos.</p>
+        <br>
+        <a class="titulo">Habilidades:</a>
+        <p class="sin-neg">Dinamic@ <br>
+          Organizad@</p>
+      </div>
+      <div class="col" id="Electrico">
+        <a class="titulo"><strong>Cargo: </strong> Electric@</a>
+        <br>
+        <a class="titulo">Actividades: </a>
+        <p class="sin-neg">Instalacion de sistemas eléctricos.</p>
+        <br>
+        <a class="titulo">Habilidades:</a>
+        <p class="sin-neg">Proactiv@ <br>
+          Organizad@</p>
+      </div>
+      <div class="col" id="Bodega">
+        <a class="titulo"><strong>Cargo: </strong> Bodega</a>
+        <br>
+        <a class="titulo">Actividades: </a>
+        <p class="sin-neg">Organizacion de los bienes asignados.</p>
+        <br>
+        <a class="titulo">Habilidades:</a>
+        <p class="sin-neg">Responsable <br>
+          Organizad@</p>
+      </div>
+    </div>
+
+    <!-- Checkbox -->
+
+    <!-- Submit button -->
+    <button type=" submit" class="btn btn-primary btn-block mb-4">ENVIAR</button>
+  </form>
+
+</div>
+
+{%endblock%}

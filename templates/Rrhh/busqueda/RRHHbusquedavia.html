@@ -1,0 +1,442 @@
+{% extends "layout.html" %} {% block content %}
+
+{% if salida == "correcto" %}
+  <script>
+    
+ function salida1()
+    {
+		swal("Registro exitoso", "Se guardo su petición", "success");
+      return false;
+    }
+
+    salida1()
+  </script>
+{% elif salida == "encontrado" %}
+<script>
+  
+function salida()
+  {
+      swal("Busqueda exitosa", "Se encontro el usuario", "success");
+    return false;
+  }
+
+  salida()
+</script>
+{% endif %}
+
+<head>
+    
+</head>
+
+<!-- Encabezado -->
+<div class="text-center mt-4">
+    <label class="h4"><strong>Recursos Humanos</strong></label>
+</div>
+
+<!-- Inicio del menu de pestañas -->
+<div class="main-cont-rrh">
+<ul class="nav nav-tabs  mb-3 mt-3 justify-content-center" id="justifyCenterTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-home-tab" data-toggle="tab" href="#justify-center-home" role="tab"
+            aria-controls="justify-center-home" aria-selected="true">Prestaciones</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-profile-tab" data-toggle="tab" href="#justify-center-profile" role="tab"
+            aria-controls="justify-center-profile" aria-selected="false">Vacaciones</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-contact-tab" data-toggle="tab" href="#justify-center-contact" role="tab"
+            aria-controls="justify-center-contact" aria-selected="false">EPP</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" id="justify-center-viatico-tab" data-toggle="tab" href="#justify-center-viatico" role="tab"
+            aria-controls="justify-center-viatico" aria-selected="false">Víaticos</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-solicitudes-tab" data-toggle="tab" href="#justify-center-solicitudes" role="tab"
+            aria-controls="justify-center-viatico" aria-selected="false">Solicitudes</a>
+    </li>
+</ul>
+<!-- fin del menu de pestañas -->
+
+<div class="tab-content" id="justifyCenterTabContent">
+    <!-- Inicio del formulario de solicitud -->
+    <div class="tab-pane fade" id="justify-center-home" role="tabpanel" aria-labelledby="justify-center-home-tab">
+        <p class="dropcap  dc-outline-primary">
+        <!--inicio del formulario de epp-->
+        <div class="widget-content widget-content-area">
+                <div class="col col-12">
+                {% if di >= 180%}
+                <form id="formbus" method="POST" action="busquedacodpre">
+                    <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                        <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                            <p>Código de usuario</p>
+                            <input id="t-userName" type="number" name="codigo" placeholder="Código del usuario"
+                                min="1" class="form-control" required>
+                        </div>
+                        <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                            <p style="color: white;">Busqueda</p>
+                            <button type="submit" class="btn btn-primary w-20"
+                                >
+                                <a style="color: white; text-decoration: none;">Buscar</a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                <h6 style="text-align: center; margin-top: 10rem;">Lo sentimos, aún no puedes solicitar préstamos o adelanto de salario (Debes tener mas de 6 meses trabajando en la empresa)
+                <br>
+                <br>
+                <br>
+                <br>
+                Fecha de contrato: {{dias[0].fechacontrato}}
+                </h6>
+                
+                {% endif%}
+                </div>
+        </div>
+        </p>
+    </div>
+    <!-- Fin del formulario de solicitud -->
+
+    <!-- Inicio del formulario de vacaciones -->
+    <div class="tab-pane fade" id="justify-center-profile" role="tabpanel" aria-labelledby="justify-center-profile-tab">
+        <p class="dropcap  dc-outline-primary">
+            <div class="widget-content widget-content-area">
+                <div class="col col-12">
+                {% if di >= 180%}
+                <form id="formbus" method="POST" action="busquedacodvac">
+                    <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                        <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                            <p>Código de usuario</p>
+                            <input id="t-userName" type="number" name="codigo" placeholder="Código del usuario"
+                                min="1" class="form-control" required>
+                        </div>
+                        <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                            <p style="color: white;">Busqueda</p>
+                            <button type="submit" class="btn btn-primary w-20"
+                                >
+                                <a style="color: white; text-decoration: none;">Buscar</a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                <h6 style="text-align: center; margin-top: 10rem;">Lo sentimos, aún no puedes solicitar préstamos o adelanto de salario (Debes tener mas de 6 meses trabajando en la empresa)
+                <br>
+                <br>
+                <br>
+                <br>
+                Fecha de contrato: {{dias[0].fechacontrato}}
+                </h6>
+                
+                {% endif%}
+                </div>
+        </div>
+    </p>
+    </div>
+    <!-- Fin del formulario de vacaciones -->
+
+    <!-- Inicio del formulario de Epp -->
+    <div class="tab-pane fade" id="justify-center-contact" role="tabpanel" aria-labelledby="justify-center-contact-tab">
+        <p class="dropcap  dc-outline-primary">
+            <div class="widget-content widget-content-area">
+                <div class="col col-12">
+                <form id="formbus" method="POST" action="busquedacodepp">
+                    <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                        <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                            <p>Código de usuario</p>
+                            <input id="t-userName" type="number" name="codigo" placeholder="Código del usuario"
+                                min="1" class="form-control" required>
+                        </div>
+                        <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                            <p style="color: white;">Busqueda</p>
+                            <button type="submit" class="btn btn-primary w-20"
+                                >
+                                <a style="color: white; text-decoration: none;">Buscar</a>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                </div>
+        </div>
+        </p>
+    </div>
+    <!-- fin del formulario epp -->
+
+    <!--Inicio del formulario viaticos-->
+    <div class="tab-pane fade show active" id="justify-center-viatico" role="tabpanel" aria-labelledby="justify-center-viatico-tab">
+        <p class="dropcap  dc-outline-primary">
+            <!--inicio del formulario de viaticos-->
+        <div class="widget-content widget-content-area">
+            <!--formulario-->
+            <div class="widget-content widget-content-area">
+
+                <div class="m-3">
+                    <form id="formvia" action="/viaticos" method="post">
+                        <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                                <p>Código de usuario</p>
+                                <input id="cod" type="number" value="{{info[0].Id_Empleado}}" placeholder="Código del usuario"
+                                    min="1" class="form-control" name="codigo" disabled>
+                            </div>
+                            <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                                <p style="color: white;">Busqueda</p>
+                                <button type="submit" class="btn btn-primary w-20" disabled
+                                    >
+                                    <a style="color: white; text-decoration: none;">Buscar</a>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                                <p>Nombres</p>
+                                <input id="nombres" type="text" name="nombre" placeholder="Ingrese su nombre" disabled value="{{info[0].Nombre}}"
+                                    class="form-control">
+                            </div>
+                        
+                            <div class="form-group col-6 ml-0 pl-0" id="container-user">
+                                <p>Apellidos</p>
+                                <input id="apellidos" type="text" name="apellido" placeholder="Ingrese sus apellidos" disabled value="{{info[0].Apellido}}"
+                                    class="form-control" >
+                            </div>   
+                            </div>
+                        
+                        <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                                <p>Fecha de inicio</p>
+                                <input id="t-userName" type="date" name="inicio" placeholder="Apellidos de usuario"
+                                    class="form-control" required>
+                            </div>
+                        
+                            <div class="form-group col-6 ml-0 pl-0" id="container-user">
+                                <p>Fecha de final</p>
+                                <input id="t-userName" type="date" name="final" placeholder="Apellidos de usuario"
+                                    class="form-control" required>
+                            </div>   
+                        </div>
+
+                        <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                            <div class="form-group col-6 ml-0 pl-0" id="container-monto">
+                                <div class="form-group" id="container-concepto">
+                                    <p>Descripcion permiso</p>
+                                    <textarea id="taskdescription" placeholder="Descripcion del uso del víatico" rows="2" class="form-control"
+                                        name="descripcion" required></textarea>
+                                    
+                                </div>
+                               
+                            </div>
+                            <div id="cuotas" class="form-group col-6 ml-0 pl-0 mr-0 pr-0" id="container-cuota">
+                                <p>Cédula del usuario</p>
+                            <input id="ced" type="text" name="cedula" placeholder="000-000000-0000A" maxlength="16"
+                                class="form-control" disabled value="{{info[0].Cedula}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group ml-1 mb-5" id="destino">
+                            <p>Lugar de destino</p>
+                            <input id="motivo1" type="text" placeholder="Ingrese el motivo especifico" class="form-control"
+                                    name="destino" required>
+                        </div>
+
+                        <!-- <div class="row col-12 justify-content-center">
+                            <div class="col-6 ml-0 mr-0">
+                                <div class="event-badge my-2">
+                                    <p class="text-center">Motivo</p>
+            
+                                    <div class="d-sm-flex d-block justify-content-around">
+        
+                                        <div class="n-chk ml-3">
+                                            <label class="new-control new-radio radio-primary">
+                                                <input type="radio" class="new-control-input" name="marker"
+                                                    value="Hospedaje" checked="true">
+                                                <span class="new-control-indicator"></span>Hospedaje
+                                            </label>
+                                        </div>
+            
+            
+                                        <div class="n-chk ml-3">
+                                            <label class="new-control new-radio radio-warning">
+                                                <input type="radio" class="new-control-input" name="marker"
+                                                    value="Alimentación">
+                                                <span class="new-control-indicator"></span>Alimentación
+                                            </label>
+                                        </div>
+            
+                                        <div class="n-chk ml-3">
+                                            <label class="new-control new-radio radio-success">
+                                                <input type="radio" class="new-control-input" name="marker"
+                                                    value="Transporte">
+                                                <span class="new-control-indicator"></span>Transporte
+                                            </label>
+                                        </div>
+            
+                                        <div class="n-chk ml-3">
+                                            <label class="new-control new-radio radio-success">
+                                                <input id="otro1" type="radio" class="new-control-input" name="marker"
+                                                    value="otro">
+                                                <span class="new-control-indicator"></span>Otro
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+        
+                        <!-- <div class="form-group my-2" id="motivo2">
+                            <p>Ingrese el motivo</p>
+                            <input id="motivo3" type="text" placeholder="Ingrese el motivo especifico" class="form-control"
+                                    name="mot">
+                        </div> -->
+
+                        <!-- <div class="row col-sm-12 justify-content-center pr-0 mr-0 ml-0 pl-0">
+                            <input type="submit" name="txt" class="mt-4 btn btn-primary col-sm-12 mr-0">
+                        </div> -->
+                        <!-- <form action="/prueba" method="POST"> -->
+                            <table class="table table-hover text-center w-70 justify-content-center mt-2">
+                              <thead id="tabla1">
+                                <tr>
+                                  <th>Detalle su viatico (por día)</th>
+                                  <th>
+                                    <button id="agregar" style="border: none">
+                                      <i class="bi bi-plus-square" style="color: black"></i>
+                                    </button>
+                                  </th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td colspan="2">
+                                    <div id="dinamic"></div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          <!-- </form> -->
+
+                        <div class="form-group justify-content-center py-2">
+                            <p class="text-center">Esta solicitud tiene una <b>vigencia de 7 días</b></p>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <input type="submit" name="txt" style="width: 7rem;" class="btn btn-primary">
+                        </div>
+
+                    </form>
+                </div>
+                <!-- </div>
+                </div> -->
+            </div>
+        </div>
+        <!--fin del formulario de viaticos-->
+        </p>
+    </div>
+    <!-- Fin del formulario viaticos -->
+
+    <!-- Inicio de la pestaña solicitudes -->
+    <div class="tab-pane fade" id="justify-center-solicitudes" role="tabpanel" aria-labelledby="justify-center-home-tab">
+        <p class="dropcap  dc-outline-primary">
+                <div class="text-center my-4">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h5><strong>Peticiones realizadas</strong></h5>
+                    </div>
+                </div>
+        <!--inicio del formulario de epp-->
+        <div class="widget-content widget-content-area">
+            <div id="tabla">
+            <table class="table table-hover text-center">
+                <thead" id="tabla1">
+                <tr>
+                    <th  scope="col" colspan = "5" style = "text-align: center; background-color: #286478; color: white;">
+                        <!-- <div class="dropdown show"> -->
+                        <a style="background-color: #286478; border: none; " class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <strong>Escoja una opcion</strong> 
+                        </a>
+                      
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="/mostrarprestaciones">Prestaciones</a>
+                          <a class="dropdown-item" href="/mostrarvacaciones">Vacaciones</a>
+                          <a class="dropdown-item" href="/mostrarepp">EPP</a>
+                          <a class="dropdown-item" href="/mostrarviaticos">Viaticos</a>
+                        </div>
+                      <!-- </div> -->
+                    </th>    
+                </tr>
+                <!-- <tr style="height: 2px;"></tr> -->
+                  <tr style="background-color: #286478; color: white;">
+                    <th scope="col">
+                    Editar   
+                    </td>
+                    </th>
+                    <th scope="col">Concepto</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">tipo</th>
+                    <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for p in presta%}
+                  <tr>
+                    <th scope="row">
+                        <p><a class="btn btn-dark" style = "background: #286478; border-color: #286478;" href="#"><i class="bi bi-eye" style = "color: white;"></i></a></p>
+                    </th>
+                    
+                    <td>{{p.concepto}}</td>
+                    <td>{{p.Monto}}</td>
+                    <td>{{p.tipo}}</td>
+                    {% if p.aceptado == 2 %}
+                        <td style="background-color: yellow;">Pendiente</td>
+                    {%elif p.aceptado == 1 %}
+                        <td style="background-color: red;">Rechazada</td>
+                    {%elif p.aceptado == 0 %}
+                        <td style="background-color: blue;">Aceptada</td>
+                    {%endif%}
+                    
+                  </tr>
+                  {%endfor%}
+                </tbody>
+              </table>
+            </div>
+        </p>
+    </div>
+</div>
+</div>
+<!-- Código para las animaciones de las pestañas -->
+<script>
+    $(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+
+  // Constantes para el div contenedor de los inputs y el botón de agregar
+  const contenedor = document.querySelector("#dinamic");
+  const btnAgregar = document.querySelector("#agregar");
+
+  // Variable para el total de elementos agregados
+  let total = 1;
+
+  /**
+   * Método que se ejecuta cuando se da clic al botón de agregar elementos
+   */
+  btnAgregar.addEventListener("click", (e) => {
+    let div = document.createElement("div");
+    div.innerHTML = `<input class="mr-2" style="margin-top: 0.5rem; width:20rem; border-radius: 0.4rem; border-color: #CFCDCB; height:2.5rem; border-width: 0.1rem" type="text" name="conceptos[]" placeholder="Concepto" required>
+    <input class="ml-2" style="margin-top: 0.5rem; width:20rem; border-radius: 0.4rem; border-color: #CFCDCB; height:2.5rem; border-width: 0.1rem" type="number" min="1" name="montos[]" placeholder="Monto" required>
+    <button class="btn btn-info" style="margin-left: 0.5rem;" onclick="eliminar(this)">Eliminar</button>
+    `;
+    contenedor.appendChild(div);
+  });
+
+  /**
+   * Método para eliminar el div contenedor del input
+   * @param {this} e
+   */
+  const eliminar = (e) => {
+    const divPadre = e.parentNode;
+    contenedor.removeChild(divPadre);
+  };
+
+  $("#agregar").trigger("click");
+</script>
+<!-- <script src="../static/js/tooltip.js"></script> -->
+{% endblock %}

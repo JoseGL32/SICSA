@@ -1,0 +1,148 @@
+{% extends "administracion.html" %} {% block admin %}
+
+<div class="admin">
+  <label class="texto-encabezado-nav">Clientes</label>
+  <a class="opc-reporte" href="#" onclick="añadircli()">Añadir</a>
+  <hr />
+  <br />
+  <div class="barra-busqueda">
+    <form action="/busquedapro" method="POST">
+      <button type="submit">
+        <box-icon name="search"></box-icon>
+      </button>
+      <input type="text" placeholder=" Busqueda de Clientes" name="busqueda" />
+    </form>
+  </div>
+  <div class="tabla-adm">
+    <table class="custab-emp">
+      <thead>
+        <tr>
+          <th>ID Empleado</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Cedula</th>
+          <th>Direccion</th>
+          <th>Usuario</th>
+          <th>Empresa</th>
+          <th>Codigo Proveedor</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody class="cuerpo-tabla-emp">
+        {% for fila in empinfo %}
+        <tr>
+          <td>{{ fila.Id_Cliente }}</td>
+          <td>{{ fila.Nombre}}</td>
+          <td>{{ fila.Apellido}}</td>
+          <td>{{ fila.Cedula}}</td>
+          <td>{{ fila.Direccion}}</td>
+          <td>{{ fila.Email}}</td>
+          <td>{{ fila.Compañia}}</td>
+          <td>{{ fila.CodigoProv}}</td>
+          <td class="text-center">
+            <a href="{{ url_for( 'adclientes' ,info=fila.Id_Cliente) }}">
+              <box-icon name="edit" color="#3075c9"></box-icon>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="div-añadircli" style="display: none;">
+  <label class="texto-encabezado-nav">Añadir Cliente</label>
+
+  <a class="close" href="#" onclick="añadircli()">&times;</a>
+  <hr />
+  <br />
+  <form action="/añadircli" method="POST">
+
+    <!-- 2 column grid layout with text inputs for the first and last names -->
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example1">Nombres</label>
+          <input type="text" id="form3Example1" name="nombre" required class="form-control" />
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example2">Apellidos</label>
+          <input type="text" id="form3Example2" name="apellido" required class="form-control" />
+
+        </div>
+      </div>
+    </div>
+    <!-- Email input -->
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example3">RUC</label>
+          <input type="text" id="form3Example3" name="cedula" required class="form-control" />
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example3">Compañia</label>
+          <input type="text" id="form3Example3" name="compañia" required class="form-control" />
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example3">Teléfono</label>
+          <input type="number" id="form3Example3" name="telefono" required class="form-control" />
+
+        </div>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example3">Email</label>
+          <input type="email" id="form3Example3" name="correo" required class="form-control" />
+
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-outline">
+          <label class="form-label" for="form3Example3">Codigo del Proveedor</label>
+          <input type="text" id="form3Example3" name="codigo" required class="form-control" />
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Password input -->
+    <div class="form-outline mb-4">
+      <label class="form-label" for="form3Example4">Dirección</label>
+      <textarea class="form-control" name="direccion" required id="exampleFormControlTextarea1" rows="3"></textarea>
+
+    </div>
+    <div class="invalid-feedback">
+      Please select a valid state.
+    </div>
+    <!-- Checkbox -->
+
+    <!-- Submit button -->
+    <button type="submit" class="btn btn-primary btn-block mb-4">ENVIAR</button>
+  </form>
+  {%if registro%}
+  <script>
+    function salida1() {
+      swal('Registro Exitoso', '', 'success')
+      var solicitud = document.querySelector('.div-añadircli')
+      solicitud.style.display = 'none'
+      window.location = "../vercliente";
+      return false
+    }
+
+    salida1()
+  </script>
+  {%endif%}
+</div>
+
+{%endblock%}

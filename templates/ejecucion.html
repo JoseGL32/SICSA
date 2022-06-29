@@ -1,0 +1,116 @@
+{% extends "layout.html" %} {% block content %}
+
+<title>SCISA-Ejecución</title>
+<!----===== CSS ===== -->
+<link rel="stylesheet" href="../static/diseño.css" />
+<nav class="div-encabezado">
+  <label class="texto-encabezado-nav">EJECUCION</label>
+</nav>
+
+<nav class="div-encabezado-opciones">
+  <div class="barra-busqueda">
+    <form action="#">
+      <button>
+        <box-icon name="search"></box-icon>
+      </button>
+      <input type="text" placeholder=" Busqueda de Proyecto" name="busqueda" />
+    </form>
+  </div>
+  <span class="btn_menu1">
+    <ul class="menu-barratop-opciones-items">
+      <box-icon type="solid" onclick="solicitud()" name="bell"></box-icon>
+    </ul>
+  </span>
+</nav>
+<main class="main-cont">
+  <div class="div-ejecucion">
+    <label class="texto-encabezado-nav">Tareas</label>
+    <hr />
+    <div class="sele-mes">
+      <form class="form-bot-lat" action="/home" method="POST">
+        <div class="grupo">
+          <button class="boton-invisible" type="submit">
+            <label class="text-sele" for="inputGroupSelect01"
+              >Elegir</label
+            ></button
+          >
+        </div>
+        <select class="custom-select" id="inputGroupSelect01" name="selec-mes">
+          <option value="todo" selected="true">Todos</option>
+          <option value="01">Enero</option>
+          <option value="02">Febrero</option>
+          <option value="03">Marzo</option>
+          <option value="04">Abril</option>
+          <option value="05">Mayo</option>
+          <option value="06">Junio</option>
+          <option value="07">Julio</option>
+          <option value="08">Agosto</option>
+          <option value="09">Septiembre</option>
+          <option value="10">Octubre</option>
+          <option value="11">Noviembre</option>
+          <option value="12">Diciembre</option>
+        </select>
+      </form>
+    </div>
+    <div class="ejecucion-imp">
+      <form
+        class="ejecucion-imp-tareas-detalle"
+        action="/ejecucion1"
+        method="POST"
+      >
+        <label class="texto-encabezado-nav">Proyecto</label>
+        <hr />
+        {%for fila in pro%}
+        <ul class="menu-vista-eje">
+          <li
+            ><a href="{{ url_for( 'ejecucion1' ,id=fila.Id_Proyecto) }}"
+              >{{fila.NombreProyecto}}
+            </a></li
+          >
+        </ul>
+
+        {%endfor%}
+      </form>
+
+      <form
+        class="ejecucion-imp-tareas-detalle"
+        action="/ejecucion2"
+        method="POST"
+      >
+        <label class="texto-encabezado-nav">Tareas</label>
+        <hr />
+        {%if tarea%} {%for fila in tarea%}
+        <ul class="menu-vista-eje">
+          <li
+            ><a href="{{ url_for( 'ejecucion2' ,id=fila.Id_Asignacion) }}"
+              >{{fila.Titulo}}
+            </a></li
+          >
+        </ul>
+        {%endfor%} {%else%}
+        <p>No hay tareas</p>
+        {%endif%}
+      </form>
+      <div class="ejecucion-imp-tareas-detalle">
+        <label class="texto-encabezado-nav">Detalles</label>
+        <hr />
+        {%if tarea1%} {%for fila in tarea1%}
+        <ul class="menu-vista-eje">
+          <li>Descripción:<a href="#">{{fila.Descripcion}} </a></li>
+          <li>Fecha Inicio:<a href="#">{{fila.FechaInicioEstimado}} </a></li>
+          <li>Fecha Fin:<a href="#">{{fila.FechaFinEstimado}} </a></li>
+          <li>Estado:<a href="#">{{fila.NombreEstado}} </a></li>
+          <li>Encargado:<a href="#">{{fila.Nombre}} </a></li>
+        </ul>
+
+        {%endfor%} {%else%}
+        <p
+          >Aqui se mostrara toda la informacion de la tarea con sus empleados
+          correspondientes</p
+        >
+        {%endif%}
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

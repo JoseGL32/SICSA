@@ -1,0 +1,136 @@
+{% extends "administracion.html" %} {% block admin %}
+
+<head>
+  <link rel="stylesheet" href="../static/diseño.css" />
+  <script src="../static/js/validacion-puesto.js"></script>
+</head>
+<div class="admin">
+  <label class="texto-encabezado-nav">Información del Usuario</label>
+  <hr />
+  <br>
+
+  <form id="nuevoemp" class="form-bot-lat" action="/actualizardatos" method="POST">
+    <div class="input">
+      {%for fila in empinfo%}
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example1">Id</label>
+            <input type="text" id="form3Example1" name="id" value="{{fila.Id_Empleado}}" required readonly
+              class="form-control" />
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example1">Nombre</label>
+            <input type="text" id="form3Example1" name="nombre" value="{{fila.Nombre}}" required class="form-control" />
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example2">Apellido</label>
+            <input type="text" id="form3Example2" name="apellido" value="{{fila.Apellido}}" required
+              class="form-control" />
+
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example3">Cédula</label>
+            <input type="text" id="form3Example3" name="cedula" value="{{fila.Cedula}}" required class="form-control" />
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example3">Teléfono</label>
+            <input type="number" id="form3Example3" name="telefono" value="{{fila.Telefono}}" required
+              class="form-control" />
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example3">Salario</label>
+            <input type="number" id="form3Example3" name="salario" value="{{fila.salario}}" required
+              class="form-control" />
+
+          </div>
+        </div>
+      </div>
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form3Example4">Dirección</label>
+        <textarea class="form-control" name="direccion" required id="exampleFormControlTextarea1"
+          rows="3">{{fila.Direccion}}</textarea>
+
+      </div>
+      <div class="form-outline mb-4">
+        <select class="custom-select" id="validationCustom04" name="rol">
+          {%if fila.fechacontrato == 1 %}
+          <option value="1" selected="true">Administrador</option>
+          <option value="0">Usuario</option>
+          {%else%}
+          <option value="1">Administrador</option>
+          <option value="0" selected="true">Usuario</option>
+          {%endif%}
+        </select>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="fecha">Fecha de Contrato</label>
+            <input type="date" id="fecha" name="fechacontrato" value="{{fila.fechacontrato}}" required disabled
+              class="form-control" />
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="validationCustom04">Talla de Camisa</label>
+            <select class="custom-select" id="validationCustom04" id="camisa1" name="camisa">
+              <option value="{{fila.CamisaTalla}}" selected="true">{{fila.CamisaTalla}}</option>
+              <option value="S">S</option>
+              <option value="M">M</option>
+              <option value="L">L</option>
+              <option value="X">X</option>
+              <option value="XL">XL</option>
+              <option value="XXL">XXL</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="validationCustom04">Talla de Zapatos</label>
+            <input type="number" id="form3Example1" name="tallazapato" value="{{fila.ZapatoTalla}}" required
+              class="form-control" />
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="validationCustom04">Puesto</label>
+            <select class="custom-select" id="validationCustom04" id="puesto1" name="puesto">
+              <option value="{{fila.Cargo}}" selected="true">{{fila.Cargo}}</option>
+              <option value="Bodega" selected="true">Bodega</option>
+              <option value="Electricista">Electrico</option>
+              <option value="Programador">Programador</option>
+              <option value="Secretaria">Secretaria</option>
+
+            </select>
+          </div>
+        </div>
+      </div>
+      <br><br><br>
+      {%endfor%}
+      <button class="enviar" type="submit">Actualizar</button>
+    </div>
+  </form>
+</div>
+
+
+
+{% endblock %}

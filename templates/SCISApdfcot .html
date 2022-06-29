@@ -1,0 +1,313 @@
+{% extends "layout.html" %} {% block content %}
+
+<link rel="stylesheet" href="/static/pdf.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+	integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+	crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+	crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<div class="mostras">
+	<button id="print" class="print" >
+		<box-icon name='printer' color="black"><img
+				src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAANtJREFUSEvVltERgjAQRN9WYAlqB9qBHdiCHdiCdGAJlGIHWgJ0YAdxhImQjJgQiYN8Zu7usbm7BZH5Ueb6DAOMMaPg0ttaMwAMvNlLnVWarOC/AMacgT2wGtXgLrgCSqTCHnVNbosfEwv7aQXS6XnYB9yBBbBFuiWBjNkAV6BCWvuAdu5DTbVkf09snjdVfQUzAwzd4WQKvgakelG0gp8BQlPle9EHBXYP3NuNBbhZNVLjBv0x3TVrDksndjygBg5IFxfgT0XAhqez61jPSP4eZAPEFg7EZf+reABfFIAZt0cI0gAAAABJRU5ErkJggg==" />
+		</box-icon>imprimir
+	</button>
+</div>
+
+<div class="container-fondo">
+	<div class="containers" id="containers">
+
+			<div class="row">
+
+				<div class="row-second">
+					<div>
+						<img src="/static/Imagenes/Logo SCISA V2.png" alt="ImagenLogo" class="imagePresentation">
+					</div>
+					<div>
+						<h3 class="headerpdf"> SERVICIOS DE
+							CONSULTORIA E INGENIERIA, S.A. </h3>
+						<br>
+						
+						<span> Bo Manolo Morales Esc Villa Venezuela 1C Oeste</span>
+						<br>
+						<span> 4C Sur 20 Vrs Oeste. Managua Nicaragua.</span>
+						
+					</div>
+				
+				</div>
+				<hr>
+				
+				<div class="row-3" >
+					<div style="margin-left:10%;">
+					<span class="headerpdf">Atencion: Ing. {{nc}}</span>
+					<input type="text" class="input-meta">
+					<br>
+					<br>
+					<br>
+					<span class="headerpdf">Proveedor:</span>
+					<input type="text" class="input-meta">
+					<br>
+					<span class="headerpdf">presupuesto de invercion:</span>
+					<input type="text" class="input-meta">
+					<br>
+					<span>fecha:</span><label for="">{{ date }}</label>
+			    	</div>
+					<hr style="width:100% ;">
+					<p>{{datadescrips}}</p>
+					<section>
+						<div class="content-image">
+							
+								<input type="file" name="file" id="file" class="image-reference">
+			
+								<div id="preview" class="styleimage image-reference">
+			
+								</div>
+						</div>
+			
+					</section>
+					</div>
+					<div class="footer">
+						<p>Danilo Jarquín</p>
+						<p>Servicios de Consultoría e Ingeniería.</p>
+						<div style="display: flex;">
+						<p>E-mail:</p> <p style="color: blue;">danilo.jarquin@scisa.com.ni</p></div>
+						<p>+505 82911828</p>
+						<hr style="background-color: rgb(97, 97, 97) ">
+						<p style="color: rgb(156, 156, 156);">Tel.: (505)2280-3675/ Cel.: (505) 82911828 • E-mail:info@scisa.com.ni</p>
+					</div>
+					<div class="object-info">
+						<div class="row-second"  style=" opacity: 0.5; margin: 0; padding-left: 100px ;">
+							<div>
+								<img src="/static/Imagenes/Logo SCISA V2.png" alt="ImagenLogo" class="imagePresentation">
+							</div>
+							<div>
+								<h3 class="headerpdf"> SERVICIOS DE
+									CONSULTORIA E INGENIERIA, S.A. </h3>
+								<br>
+								
+								<span> Bo Manolo Morales Esc Villa Venezuela 1C Oeste</span>
+								<br>
+								<span> 4C Sur 20 Vrs Oeste. Managua Nicaragua.</span>
+								
+							</div>
+						</div>
+					<p>Contenido</p>
+						<a class="a-decoration" href="#obj"> Objetivo de la oferta </a>
+						<a class="a-decoration" href="#obj2">Generalidades</a>
+						<a class="a-decoration" href="#obj3">Alcance del proyecto</a>
+						<a class="a-decoration" href="#obj">Costos del proyecto</a>
+						<a class="a-decoration" href="#obj5">Monto Total de la Oferta</a>
+						<a class="a-decoration" href="#obj6">Garantías</a>
+						<a class="a-decoration" href="#obj7">Forma de pago</a>
+						<a class="a-decoration" href="#obj8">Tiempo de ejecución de los trabajos</a>
+						<a class="a-decoration" href="#obj9">Validez de la oferta</a>
+					</div>
+					<div><br>
+						<br>
+						<br>
+						<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+					<br>
+				</div>
+				<div class="row-second"  style=" opacity: 0.5; margin: 0; padding-left: 100px ;">
+					<div>
+						<img src="/static/Imagenes/Logo SCISA V2.png" alt="ImagenLogo" class="imagePresentation">
+					</div>
+					<div>
+						<h3 class="headerpdf"> SERVICIOS DE
+							CONSULTORIA E INGENIERIA, S.A. </h3>
+						<br>
+						
+						<span> Bo Manolo Morales Esc Villa Venezuela 1C Oeste</span>
+						<br>
+						<span> 4C Sur 20 Vrs Oeste. Managua Nicaragua.</span>
+						
+					</div>
+				</div>
+				<ol>
+					<li>
+						
+							<a name="obj"></a>
+							<h5><b> Objetivo de la oferta </b></h5>
+						
+					</li>
+				</ol>
+
+
+
+				<ol start="2">
+					<li>
+						<a name="obj2"></a>
+						<h5> <b> Generalidades </b> </h5>
+					</li>
+				</ol>
+
+
+				<ol start="3">
+					<li>
+						<h5> <b> Alcance de la obra </b></h5>
+					</li>
+				</ol>
+
+
+
+				<ol start="4">
+					<li>
+						<h5> <b> Costo del proyecto </b> </h5>
+					</li>
+				</ol>
+
+				<table id="tableCot" >
+					<thead>
+						<tr style="text-align: center;">
+							<th style="text-align: center; background-color: #538393;">
+							</th>
+							<th style="text-align: center; background-color: #538393;">
+								{% for fila in datas %}
+								{{fila.Descripcion}}
+								{% endfor %}
+
+							</th>
+							<th style="text-align: center; background-color: #538393;">
+							</th>
+							<th style="text-align: center; background-color: #538393;">
+							</th>
+							<th style="text-align: center; background-color: #538393;">
+							</th>
+							<th style="text-align: center; background-color: #538393;">
+							</th>
+						</tr>
+						<tr style="border: 2px solid black;">
+							<th>Descripcion</th>
+							<th>U/M</th>
+							<th>Cantidad</th>
+							<th>Materiales</th>
+							<th>mano de obra</th>
+							<th>sub total</th>
+						</tr>
+					</thead>
+					<tbody>
+						
+						{% for fila in fg %}
+						<tr>
+
+							<td>
+								<p style="margin-left: 10px;">{{fila.Descripccion}}</p>
+							</td>
+							{% endfor %}
+							<td>un</td>
+							<td>1,00</td>
+							<td>{{datas1}}</td>
+							<td>{{ datas2}}</td>
+							<td>{{datas3}}</td>
+						</tr>
+						<tr>
+							<td style=" background-color: #538393;"></td>
+							<td style=" background-color: #538393;"></td>
+							<td style=" background-color: #538393;"></td>
+							<td style=" background-color: #538393;"></td>
+							<td style=" background-color: #538393;">TOTAL GENERAL U$</td>
+							<td style=" background-color: #538393;">${{datas3}}</td>
+						</tr>
+						
+					</tbody>
+				</table>
+
+				<ol start="5">
+					<li>
+						<h5> <b> Monto total de la oferta </b></h6>
+					</li>
+				</ol>
+			
+			<p>El monto de la oferta es de US{{datas3}}</p>
+
+
+				<ol start="6">
+					<li>
+						<h5> <b> Garantías </b></h5>
+					</li>
+				</ol>
+
+	
+				<ol start="7">
+					<li>
+						<h5> <b> Forma de pago </b> </h5>
+					</li>
+				</ol>
+			<p>La forma de pago se realizará de siguiente forma:</p>
+		    <li>
+				<h5> <b> a)	100 % Finalizado el servicio. </b> </h5>
+			</li>
+				<ol start="8">
+					<li>
+						<h5><b>Tiempo de ejecución de los trabajos</b> </h5>
+					</li>
+				</ol>
+			
+
+				<br>
+				<br>
+				<br>
+				<br>
+				<ol start="9">
+					<li>
+						<h5> <b> Validez de la oferta </b></h5>
+					</li>
+				</ol>
+				<p>Validez de la oferta 15 días calendario a partir de la fecha de presentación por lo que todos los términos y condiciones aquí expresadas están sujetos a cambios sin previo aviso una vez caducado el período de validez.</p>
+			</div>
+		</div>
+
+	</div>
+
+</div><!-- // End #container -->
+<script src="../static/js/script1.js"></script>
+<script>
+	addEventListener("DOMContentLoaded", () => {
+		const $boton = document.querySelector("#print");
+    $boton.addEventListener("click", () => {
+		elementoParaConvertir = document.querySelector(".row"); // <-- Aquí puedes elegir cualquier elemento del DOM
+		elementoParaConvertir.style.display = "block";
+		html2pdf()
+		  .set({
+			margin: 0.5,
+			filename: "Reporte.pdf",
+			image: {
+			  type: "jpeg",
+			  quality: 0.98,
+			},
+			html2canvas: {
+			  scale: 4, // A mayor escala, mejores gráficos, pero más peso
+			  letterRendering: true,
+			},
+			jsPDF: {
+			  unit: "in",
+			  format: "a4",
+			  orientation: "portrait", // landscape o portrait
+			},
+		  })
+
+		  .from(elementoParaConvertir)
+		  .save();
+	  });
+	});
+  </script>
+{% endblock %}

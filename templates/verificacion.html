@@ -1,0 +1,24 @@
+{% extends "administracion.html" %} {% block admin %}
+
+<div class="admin">
+  <div class="success">
+    <img src="../static/Imagenes/Recursos/success.png" alt="" />
+  </div>
+  <br />
+  <br />
+  <label class="titulo-ver" for="">LA OPERACION SE REALIZÓ CON ÉXITO</label>
+  {%if cred%}
+  <p>Sus Credenciales son:</p>
+  <p>Usuario: {{cred[0]['Usuario']}}</p>
+  <p>Contraseña: {{cont}}</p>
+  <a
+    href="https://api.whatsapp.com/send?phone=+50588465816&text=Bienvenido%20a%20la%20Plataforma%20SCISA%0ASu%20Usuario%20es:%20{{cred[0]['Usuario']}}%20%0AContraseña:%20{{cont}}"
+    target="_blank"
+    ><box-icon name="whatsapp" type="logo" color="#0bf308"></box-icon
+  ></a>
+  <a href="/veremp"><button class="enviar">Aceptar</button></a>
+  {%else%}
+  <a href="/vercliente"><button class="enviar">Aceptar</button></a
+  >{%endif%}
+</div>
+{%endblock%}

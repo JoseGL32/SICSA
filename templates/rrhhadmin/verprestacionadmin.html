@@ -1,0 +1,30 @@
+{%if m%} {% for m in m%}
+<table class="table">
+  <tbody style="text-align: center">
+    <tr>
+      <th scope="row">
+        <a
+          class="btn btn-dark"
+          style="font-size: 0.6rem"
+          href="{{url_for('verprestacionesempleado', id = m.idprestacion)}}"
+          ><i class="bi bi-eye"></i
+        ></a>
+      </th>
+
+      <td>{{m.Nombres}} {{m.Apellidos}}</td>
+      <td>{{m.Monto}}</td>
+      <td>{{m.tipo}}</td>
+      {% if m.aceptado == 2 %}
+      <td style="background-color: yellow"><strong>Pendiente</strong></td>
+      {%elif m.aceptado == 1 %}
+      <td style="background-color: red"><strong>Rechazada</strong></td>
+      {%elif m.aceptado == 0 %}
+      <td style="background-color: blue"><strong>Aceptada</strong></td>
+      {%endif%}
+    </tr>
+    {%endfor%}
+  </tbody>
+</table>
+{%else%}
+<h6 style="text-align: center">No hay solicitudes para este mes</h6>
+{%endif%}

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% if hola == 1 %}
+  <script>
+    function salida() {
+      alert("error de login");
+      return false;
+    }
+
+    salida();
+  </script>
+
+  {% endif %}
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>SICSA-Log In </title>
+    <!----===== GOOGLE FONT ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- iconos -->
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+      integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+      crossorigin="anonymous"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/login.css" />
+  </head>
+
+  <form class="login-box" action="/login" method="POST">
+    <div class="avatar">
+      <img
+        src="../static/Imagenes/Logo SCISA V2.png"
+        class="img-responsive"
+        height="150px"
+        width="200px"
+        alt=""
+      />
+    </div>
+    <h1>Inicio de Sesion</h1>
+    <div class="textbox">
+      <input type="text" name="usuario" required placeholder="Nombre" />
+    </div>
+    <div class="textbox">
+      <input
+        type="password"
+        required
+        name="contraseña"
+        placeholder="Contraseña"
+      />
+    </div>
+    <button class="boton" type="submit">Log In</button>
+  </form></html
+>

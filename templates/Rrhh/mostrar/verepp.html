@@ -1,0 +1,175 @@
+{% extends "layout.html" %} {% block content %}
+
+<head>
+    <link rel="stylesheet" href="../../../static/diseño.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<div class="text-center mt-4">
+    <label class="h4"><strong>Solicitud de epp</strong></label>
+</div>
+
+<div class="tab-content" id="justifyCenterTabContent">
+    <!-- Inicio del formulario de solicitud -->
+    <div class="tab-pane fade show active" id="justify-center-home" role="tabpanel" aria-labelledby="justify-center-home-tab">
+        <p class="dropcap  dc-outline-primary">
+         <!--inicio del formulario de epp-->
+
+         <div class="widget-content widget-content-area">
+            <!--formulario-->
+            <form id = "formepp" name = "formepp" method="POST">
+
+                <input id="nombres" type="hidden" name="id"  value="{{info[0].idepp}}">
+
+                <div class="col col-12">
+                    <div class="row col-12 d-flex justify-content-around mb-4">
+                        <!--radios buttom-->
+                        {% if info[0].tipo == "reemplazo" %}
+                        <div class="custom-control custom-radio col-4">
+                            <input type="radio" id="rbtEntrega" name="customRadio" value="primeravez" disabled class="custom-control-input">
+                            <label class="custom-control-label" for="rbtEntrega">Primera entrega</label>
+                        </div>
+                        <div class="custom-control custom-radio mb-2 col-3">
+                            <input type="radio" id="rbtReemplazo" name="customRadio" value="reemplazo" disabled class="custom-control-input"
+                                checked="true">
+                            <label class="custom-control-label" for="rbtReemplazo">Reemplazo</label>
+                        </div>
+                        {% elif info.tipo[0].tipo == "primeravez" %}
+                        <div class="custom-control custom-radio col-4">
+                            <input type="radio" id="rbtEntrega" name="customRadio" value="primeravez" disabled checked="true" class="custom-control-input">
+                            <label class="custom-control-label" for="rbtEntrega">Primera entrega</label>
+                        </div>
+                        <div class="custom-control custom-radio mb-2 col-3">
+                            <input type="radio" id="rbtReemplazo" name="customRadio" value="reemplazo" disabled class="custom-control-input"
+                                >
+                            <label class="custom-control-label" for="rbtReemplazo">Reemplazo</label>
+                        </div>
+                        {%endif%}
+                    </div>
+
+                    <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                        <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                            <p>Código de usuario</p>
+                            <input id="cod" type="number" value="{{info[0].Id_Empleado}}" placeholder="Código del usuario"
+                                min="1" class="form-control" name="codigo" disabled>
+                        </div>
+                        <!-- <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                            <p style="color: white;">Busqueda</p>
+                            <button type="submit" class="btn btn-primary w-20" disabled
+                                >
+                                <a style="color: white; text-decoration: none;">Buscar</a>
+                            </button>
+                        </div> -->
+                    </div>
+
+                    <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p>Nombres</p>
+                        <input id="nombres" type="text" name="nombre" placeholder="Ingrese su nombre" disabled value="{{info[0].nombres}}"
+                            class="form-control">
+                    </div>
+                
+                    <div class="form-group col-6 ml-0 pl-0" id="container-user">
+                        <p>Apellidos</p>
+                        <input id="apellidos" type="text" name="apellido" placeholder="Ingrese sus apellidos" disabled value="{{info[0].apellidos}}"
+                            class="form-control" >
+                    </div>   
+                    </div>
+                    
+                    <!-- <div class="form-group" id="container-descripcion">
+                        <p>Nombre del equipo</p>
+                        <input id="t-descripcion" type="text" name="equipo"
+                            placeholder="Nombre del equipo" class="form-control" required>
+                    </div> -->
+                    <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                        <div class="form-group col-6 ml-0 pl-0" id="container-monto">
+                            <div class="form-group" id="container-concepto">
+                                <p>Nombre del equipo</p>
+                                <input id="t-descripcion" type="text" name="equipo"
+                                placeholder="Nombre del equipo" value="{{info[0].equipo}}" class="form-control" disabled>
+                                
+                            </div>
+                           
+                        </div>
+                        <!-- <div id="cuotas" class="form-group col-6 ml-0 pl-0 mr-0 pr-0" id="container-cuota">
+                            <p>Cédula del usuario</p>
+                        <input id="ced" type="text" name="cedula" placeholder="000-000000-0000A" maxlength="16"
+                            class="form-control" disabled value="{{info[0].Cedula}}">
+                        </div> -->
+                    </div>
+
+                    <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                        <div class="form-group col-6 ml-0 pl-0" id="container-monto">
+                            <p>Marca</p>
+                            <input id="t-marca" type="text" name="marca" placeholder="Marca" class="form-control" value="{{info[0].marca}}"
+                                disabled>
+
+                        </div>
+                        <div class="form-group col-6 ml-0 pl-0 mr-0 pr-0" id="container-cuota">
+                            <p>Cantidad</p>
+                            <input id="t-cantidad" type="number" min="1" name="cantidad" placeholder="Cantidad" value="{{info[0].cantidad}}"
+                                class="form-control" disabled>
+
+                        </div>
+                    </div>
+                    <div class="form-group" id="container-concepto">
+                        <p>Observaciones:</p>
+                        <textarea id="t-concepto" type="text" name="observacion"
+                            class="form-control" disabled>{{info[0].observacion}}</textarea>
+                    </div>
+
+                    <div class="form-group justify-content-center py-2">
+                        <p class="text-center">Esta solicitud tiene una <b>vigencia de 7 días</b></p>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: center;">
+                    <div class="row justify-content-center mr-2">
+                        <button type="submit" class="btn btn-primary" onclick="val()"><a style="color: white; text-decoration: none;">Eliminar</a></button>
+                    </div> 
+    
+                    <div class="row justify-content-center mr-2 ml-2">
+                        <button type="reset" class="btn btn-primary" onclick="alert('Aun no funcional!')"><a style="color: white; text-decoration: none;">Modificar</a></button>
+                    </div>
+        
+                    <div class="row justify-content-center ml-2">
+                        <button type="reset" class="btn btn-primary"><a style="color: white; text-decoration: none;" href="/mostrarepp">Atrás</a></button>
+                    </div>  
+                </div> 
+
+            </form>
+        </div>
+        </p>
+    </div>
+    <!-- fin del formulario epp -->
+</div>
+
+<script>
+    function envio() {
+        document.formepp.submit();
+    }
+
+    function val() {
+        event.preventDefault();
+
+        swal({
+            title: "¿Estás seguro?",
+            text: "Una vez que elimines la petición, esta no podrá ser recuperada",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    swal("¡Hecho! Su petición ha sido eliminada", {
+                        icon: "success",
+                    });
+                    window.setTimeout(envio, 1000);
+                } else {
+                    swal("No se ha eliminado la petición");
+                    return false;
+                }
+            });
+    }
+</script>
+{% endblock %}

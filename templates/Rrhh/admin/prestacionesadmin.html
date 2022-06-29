@@ -1,0 +1,258 @@
+{% extends "layout.html" %} {% block content %}
+
+<head>
+<link rel="stylesheet" href="../../../static/diseño.css">
+</head>
+
+<!-- Encabezado -->
+<div class="text-center mt-4">
+    <label class="h4"><strong>Recursos Humanos - Administrador</strong></label>
+</div>
+
+<!-- Inicio del menu de pestañas -->
+<div class="main-cont-rrh">
+<ul class="nav nav-tabs  mb-3 mt-3 justify-content-center" id="justifyCenterTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" id="justify-center-home-tab" data-toggle="tab" href="#justify-center-home" role="tab"
+            aria-controls="justify-center-home" aria-selected="true">Prestaciones</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-profile-tab" data-toggle="tab" href="#justify-center-profile" role="tab"
+            aria-controls="justify-center-profile" aria-selected="false">Vacaciones</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-contact-tab" data-toggle="tab" href="#justify-center-contact" role="tab"
+            aria-controls="justify-center-contact" aria-selected="false">EPP</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-viatico-tab" data-toggle="tab" href="#justify-center-viatico" role="tab"
+            aria-controls="justify-center-viatico" aria-selected="false">Víaticos</a>
+    </li>
+    <!-- <li class="nav-item">
+        <a class="nav-link" id="justify-center-solicitudes-tab" data-toggle="tab" href="#justify-center-solicitudes" role="tab"
+            aria-controls="justify-center-viatico" aria-selected="false">Solicitudes</a>
+    </li> -->
+</ul>
+<!-- fin del menu de pestañas -->
+
+<div class="tab-content" id="justifyCenterTabContent">
+    <!-- Inicio del formulario de solicitud -->
+    <div class="tab-pane fade show active" id="justify-center-home" role="tabpanel" aria-labelledby="justify-center-home-tab">
+        <p class="dropcap  dc-outline-primary">
+            <div class="text-center my-4">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                    <h5><strong>Peticiones realizadas</strong></h5>
+                </div>
+            </div>
+        <!--inicio del formulario de epp-->
+        <div class="widget-content widget-content-area">
+            <div id="tabla">
+                <table class="table table-hover text-center">
+                    <thead" id="tabla1">
+                    <tr>
+                        <th  scope="col" colspan = "5" style = "text-align: center; background-color: #286478; color: white;">
+                            <!-- <div class="dropdown show"> -->
+                            <a style="background-color: #286478; border: none; " class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <strong>Escoja una opcion</strong> 
+                            </a>
+                          
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {% for empleados in emp%}
+                              <a class="dropdown-item" href="{{url_for('verprestacionesempleado', id = empleados.Id_Empleado)}}"">{{empleados.Nombre}} {{empleados.Apellido}}</a>
+                              {% endfor%}
+                            </div>
+                          <!-- </div> -->
+                        </th>    
+                    </tr>
+                    <!-- <tr style="height: 2px;"></tr> -->
+                      <tr style="background-color: #286478; color: white;">
+                        <th scope="col">
+                        Editar1   
+                        </td>
+                        </th>
+                        <th scope="col">Concepto</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">tipo</th>
+                        <th scope="col">Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in info%}
+                      <tr>
+                        <th scope="row">
+                            <p><a class="btn btn-dark" style = "background: #286478; border-color: #286478;" href="#"><i class="bi bi-eye" style = "color: white;"></i></a></p>
+                        </th>
+                        
+                        <td>{{p.concepto}}</td>
+                        <td>{{p.Monto}}</td>
+                        <td>{{p.tipo}}</td>
+                        {% if p.aceptado == 2 %}
+                            <td style="background-color: yellow;">Pendiente</td>
+                        {%elif p.aceptado == 1 %}
+                            <td style="background-color: red;">Rechazada</td>
+                        {%elif p.aceptado == 0 %}
+                            <td style="background-color: blue;">Aceptada</td>
+                        {%endif%}
+                        
+                      </tr>
+                      {%endfor%}
+                      <!-- Acá comienza las listas acordeon -->
+                    </tbody>
+                  </table>
+                </div>
+        </div>
+        </p>
+    </div>
+    <!-- Fin del formulario de solicitud -->
+
+    <!-- Inicio del formulario de vacaciones -->
+    <div class="tab-pane fade" id="justify-center-profile" role="tabpanel" aria-labelledby="justify-center-profile-tab">
+        <p class="dropcap  dc-outline-primary">
+            <div class="text-center my-4">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                    <h5><strong>Peticiones realizadas</strong></h5>
+                </div>
+            </div>
+        <!--inicio del formulario de epp-->
+        <div class="widget-content widget-content-area">
+            <div id="tabla">
+                <table class="table table-hover text-center">
+                    <thead" id="tabla1">
+                    <tr>
+                        <th  scope="col" colspan = "5" style = "text-align: center; background-color: #286478; color: white;">
+                            <!-- <div class="dropdown show"> -->
+                            <a style="background-color: #286478; border: none; " class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <strong>Escoja una opcion</strong> 
+                            </a>
+                          
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {% for empleados in emp%}
+                              <a class="dropdown-item" href="{{url_for('vervacacionesempleado', id = empleados.Id_Empleado)}}"">{{empleados.Nombre}} {{empleados.Apellido}}</a>
+                              {% endfor%}
+                            </div>
+                          <!-- </div> -->
+                        </th>    
+                    </tr>
+                    <!-- <tr style="height: 2px;"></tr> -->
+                      <tr style="background-color: #286478; color: white;">
+                        <th scope="col">
+                        Editar   
+                        </td>
+                        </th>
+                        <th scope="col">Concepto</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">tipo</th>
+                        <th scope="col">Estado</th>
+                      </tr>
+                    </thead>
+                  </table>
+            </div>
+        </div>
+        </p>
+    </div>
+    <!-- Fin del formulario de vacaciones -->
+
+    <!-- Inicio del formulario de Epp -->
+    <div class="tab-pane fade" id="justify-center-contact" role="tabpanel" aria-labelledby="justify-center-contact-tab">
+        <p class="dropcap  dc-outline-primary">
+            <div class="text-center my-4">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                    <h5><strong>Peticiones realizadas</strong></h5>
+                </div>
+            </div>
+        <!--inicio del formulario de epp-->
+        <div class="widget-content widget-content-area">
+            <div id="tabla">
+                <table class="table table-hover text-center">
+                    <thead" id="tabla1">
+                    <tr>
+                        <th  scope="col" colspan = "5" style = "text-align: center; background-color: #286478; color: white;">
+                            <!-- <div class="dropdown show"> -->
+                            <a style="background-color: #286478; border: none; " class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <strong>Escoja una opcion</strong> 
+                            </a>
+                          
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {% for empleados in emp%}
+                              <a class="dropdown-item" href="{{url_for('vereppempleado', id = empleados.Id_Empleado)}}"">{{empleados.Nombre}} {{empleados.Apellido}}</a>
+                              {% endfor%}
+                            </div>
+                          <!-- </div> -->
+                        </th>    
+                    </tr>
+                    <!-- <tr style="height: 2px;"></tr> -->
+                      <tr style="background-color: #286478; color: white;">
+                        <th scope="col">
+                        Editar   
+                        </td>
+                        </th>
+                        <th scope="col">Concepto</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">tipo</th>
+                        <th scope="col">Estado</th>
+                      </tr>
+                    </thead>
+                  </table>
+            </div>
+        </div>
+        </p>
+    </div>
+    <!-- fin del formulario epp -->
+
+    <!--Inicio del formulario viaticos-->
+    <div class="tab-pane fade" id="justify-center-viatico" role="tabpanel" aria-labelledby="justify-center-viatico-tab">
+        <p class="dropcap  dc-outline-primary">
+            <div class="text-center my-4">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                    <h5><strong>Peticiones realizadas</strong></h5>
+                </div>
+            </div>
+        <!--inicio del formulario de epp-->
+        <div class="widget-content widget-content-area">
+            <div id="tabla">
+                <table class="table table-hover text-center">
+                    <thead" id="tabla1">
+                    <tr>
+                        <th  scope="col" colspan = "5" style = "text-align: center; background-color: #286478; color: white;">
+                            <!-- <div class="dropdown show"> -->
+                            <a style="background-color: #286478; border: none; " class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <strong>Escoja una opcion</strong> 
+                            </a>
+                          
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {% for empleados in emp%}
+                              <a class="dropdown-item" href="{{url_for('verviaticosempleado', id = empleados.Id_Empleado)}}"">{{empleados.Nombre}} {{empleados.Apellido}}</a>
+                              {% endfor%}
+                            </div>
+                          <!-- </div> -->
+                        </th>    
+                    </tr>
+                    <!-- <tr style="height: 2px;"></tr> -->
+                      <tr style="background-color: #286478; color: white;">
+                        <th scope="col">
+                        Editar   
+                        </td>
+                        </th>
+                        <th scope="col">Concepto</th>
+                        <th scope="col">Monto</th>
+                        <th scope="col">tipo</th>
+                        <th scope="col">Estado</th>
+                      </tr>
+                    </thead>
+                  </table>
+            </div>
+        </div>
+        </p>
+    </div>
+    <!-- Fin del formulario viaticos -->
+</div>
+</div>
+<!-- Código para las animaciones de las pestañas -->
+<script>
+    
+    $(".custom-file-input").on("change", function() {
+  var fileName = $(this).val().split("\\").pop();
+  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>
+{% endblock %}

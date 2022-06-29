@@ -1,0 +1,95 @@
+{% extends "administracion.html" %} {% block admin %}
+
+<head>
+  <link rel="stylesheet" href="../static/diseño.css" />
+</head>
+<div class="admin">
+  <label class="texto-encabezado-nav">Informacion del Cliente</label>
+  <hr />
+  <br>
+
+  <form class="form-bot-lat" action="/actualizardatoscli" method="POST">
+    <div class="input">
+      {%for fila in clinfo%}
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example1">ID</label>
+            <input type="text" id="form3Example1" name="Id" value="{{fila.Id_Cliente}}" readonly class="form-control" />
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example1">Nombres</label>
+            <input type="text" id="form3Example1" name="nombre" value="{{fila.Nombre}}" required class="form-control" />
+
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example2">Apellidos</label>
+            <input type="text" id="form3Example2" name="apellido" value="{{fila.Apellido}}" required class="
+              form-control" />
+
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example3">RUC</label>
+            <input type="text" id="form3Example3" value="{{fila.Cedula}}" name="cedula" required readonly
+              class="form-control" />
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example3">Compañia</label>
+            <input type="text" id="form3Example3" name="compañia" value="{{fila.Compañia}}" required
+              class="form-control" />
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example3">Teléfono</label>
+            <input type="number" id="form3Example3" name="telefono" value="{{fila.Telefono}}" required
+              class="form-control" />
+
+          </div>
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example3">Email</label>
+            <input type="email" id="form3Example3" name="correo" value="{{fila.Email}}" required class="form-control" />
+
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-outline">
+            <label class="form-label" for="form3Example3">Codigo del Proveedor</label>
+            <input type="text" id="form3Example3" name="codigo" value="{{fila.CodigoProv}}" required readonly
+              class="form-control" />
+
+          </div>
+        </div>
+      </div>
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form3Example4">Dirección</label>
+        <textarea class="form-control" name="direccion" value="" required id="exampleFormControlTextarea1"
+          rows="3">{{fila.Direccion}}</textarea>
+
+      </div>
+      <br><br><br>
+      {%endfor%}
+      <button class="enviar" type="submit">Actualizar</button>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

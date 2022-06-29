@@ -1,0 +1,75 @@
+{% extends "administracion.html" %} {% block admin %}
+<div class="admin">
+  <label class="texto-encabezado-nav">Asistencia</label>
+  <hr />
+  <form action="/mostratrasistencia" method="POST">
+    <center>
+      <br />
+      <div class="sele-mes">
+        <div class="grupo">
+          <button class="boton-invisible" type="submit">
+            <label class="text-sele" for="s1">Elegir</label>
+          </button>
+        </div>
+        <select class="custom-select" id="s1" name="seleccion">
+          <option value="01">Enero</option>
+          <option value="02">Febrero</option>
+          <option value="03">Marzo</option>
+          <option value="04">Abril</option>
+          <option value="05">Mayo</option>
+          <option value="06">Junio</option>
+          <option value="07">Julio</option>
+          <option value="08">Agosto</option>
+          <option value="09">Septiembre</option>
+          <option value="10">Octubre</option>
+          <option value="11">Noviembre</option>
+          <option value="12">Diciembre</option>
+        </select>
+
+        <select class="custom-select" name="seleccion1">
+          {% for fila in asist %}
+          <tr>
+            <option value="todo" selected="true">Todos</option>
+            <option value="{{fila.IdUsuario}}">{{ fila.Nombre }}</option>
+          </tr>
+          {% endfor %}
+        </select>
+      </div>
+    </center>
+  </form>
+  <br />
+  <div class="tabla">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Fecha Entrada</th>
+          <th>Fecha Salida</th>
+          <th>Hora Entrada</th>
+          <th>Hora salida</th>
+          <th>Horas Trabajadas</th>
+          <th>Ip</th>
+        </tr>
+      </thead>
+      <tbody class="cuerpo-tabla">
+        {% for fila in listas %}
+        <tr>
+          <td>{{ fila.Id_Empleado }}</td>
+          <td>{{ fila.FechaEntrada}}</td>
+          <td>{{ fila.FechaSalida}}</td>
+          <td>{{ fila.HoraEntrada}}</td>
+          <td>{{ fila.HoraSalida}}</td>
+          <td>{{ fila.HorasTrabajadas}}</td>
+          <td>{{ fila.Ip}}</td>
+          <td>
+            <a href="{{ url_for( 'mapa' ,ip=fila.Ip) }}">
+              <box-icon name="map" type="solid" color="#286478"></box-icon>
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endblock %}
+</div>

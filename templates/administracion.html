@@ -1,0 +1,34 @@
+{% extends "layout.html" %} {% block content %}
+<head>
+  <link rel="stylesheet" href="../static/formularios.css" />
+</head>
+<nav class="div-encabezado">
+  <label class="texto-encabezado-nav">Administración</label>
+</nav>
+
+<nav class="div-encabezado-opciones">
+  <div class="barra-busqueda"> </div>
+  <span class="btn_menu1">
+    <ul class="menu-barratop-opciones-items">
+      <!-- admin -->
+      <a href="#"><box-icon name="book-content"></box-icon></a>
+      <li><a href="#">Cotizaciones</a></li>
+      <a href="/veremp"><box-icon name="group"></box-icon></a>
+      <li><a href="/veremp">Usuarios</a></li>
+      <a href="/admateriales"><box-icon name="hard-hat"></box-icon></a>
+      <li>
+        <a href="/admateriales">Materiales</a>
+      </li>
+      <a href="/asistencia"
+        ><box-icon type="solid" name="stopwatch"></box-icon
+      ></a>
+      <li><a href="/asistencia">Asistencia</a></li>
+      <a href="/vercliente"><box-icon type="solid" name="group"></box-icon></a>
+      <li><a href="/vercliente">Clientes</a></li>
+    </ul>
+  </span>
+</nav>
+<main class="main-cont">
+  {% block admin %} {% endblock %}
+</main>
+{% endblock %}

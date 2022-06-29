@@ -1,0 +1,494 @@
+{% extends "layout.html" %} {% block content %}
+
+<head>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+</head>
+<!-- Encabezado -->
+<div class="text-center mt-4">
+  <label class="h4"><strong>Recursos Humanos - Administrador</strong></label>
+</div>
+<style>
+  .menu_items {
+    display: relative;
+    list-style: none;
+    margin-left: 0px;
+    margin-top: 30px;
+  }
+</style>
+
+<!-- Inicio del menu de pestañas -->
+<div class="main-cont-rrh">
+  <ul class="nav nav-tabs  mb-3 mt-3 justify-content-center" id="justifyCenterTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="justify-center-home-tab" data-toggle="tab" href="#justify-center-home" role="tab"
+        aria-controls="justify-center-home" aria-selected="true">Prestaciones</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="justify-center-profile-tab" data-toggle="tab" href="#justify-center-home" role="tab"
+        aria-controls="justify-center-profile" aria-selected="false">Vacaciones</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="justify-center-contact-tab" data-toggle="tab" href="#justify-center-home" role="tab"
+        aria-controls="justify-center-contact" aria-selected="false">EPP</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="justify-center-viatico-tab" data-toggle="tab" href="#justify-center-home" role="tab"
+        aria-controls="justify-center-viatico" aria-selected="false">Víaticos</a>
+    </li>
+    <!-- <li class="nav-item">
+        <a class="nav-link" id="justify-center-solicitudes-tab" data-toggle="tab" href="#justify-center-solicitudes" role="tab"
+            aria-controls="justify-center-viatico" aria-selected="false">Solicitudes</a>
+    </li> -->
+  </ul>
+  <!-- fin del menu de pestañas -->
+
+  <div class="tab-content" id="justifyCenterTabContent">
+    <!-- Inicio del formulario de solicitud -->
+    <div class="tab-pane fade show active" id="justify-center-home" role="tabpanel"
+      aria-labelledby="justify-center-home-tab">
+      <p class="dropcap  dc-outline-primary">
+      <div class="text-center my-4">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+          <h5><strong><label id="titulo">Solicitudes de prestaciones realizadas</label></strong></h5>
+        </div>
+      </div>
+      <!--inicio del formulario de epp-->
+      <div class="widget-content widget-content-area">
+        <div id="tabla">
+          <table class="table table-hover text-center">
+            <thead" id="tabla1">
+              <tr>
+                <th scope="col" colspan="5" style="text-align: center; background-color: #286478; color: white;">
+                  <!-- <div class="dropdown show"> -->
+                  <a style="background-color: #286478; border: none; " class="btn btn-secondary dropdown-toggle"
+                    href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <strong>Filtro</strong>
+                  </a>
+
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" id = "hoy" href="#">Hoy</a>
+                    <a class="dropdown-item" id = "ayer" href="#">Ayer</a>
+                    <a class="dropdown-item" id = "estemes" href="#">Este mes</a>
+                    <a class="dropdown-item" id = "listames" href="#">Lista de meses</a>
+                  </div>
+                  <!-- </div> -->
+                </th>
+              </tr>
+              </thead>
+          </table>
+          
+          <input type="hidden" name="mes" id = "mesbus">
+          <input type="hidden" name="tipo" value="1"  id = "tipo">
+
+          <div id = "filter">
+
+          </div>
+
+          <div id="meses-filter">
+            <div class="accordion" id="accordionExample">
+              <div style="text-align: center;" class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOne" name = "en" id="en" aria-expanded="true" aria-controls="collapseOne">
+                    Enero
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-enero">
+                    
+                  </div>
+                </div>
+              </div>
+              <div style="text-align: center;" class="accordion-item">
+                <h2 class="accordion-header" id="headingTwo">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseTwo" name = "feb" id="feb" aria-expanded="false" aria-controls="collapseTwo">
+                    Febrero
+                  </button>
+                </h2>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-febrero">
+                    
+                  </div>
+                </div>
+              </div>
+              <div style="text-align: center;" class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseThree" name = "mar" id="mar" aria-expanded="false" aria-controls="collapseThree">
+                    Marzo
+                  </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-marzo">
+                    
+                  </div>
+                </div>
+              </div>
+              <div style="text-align: center;" class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse4" name = "abr" id="abr" aria-expanded="false" aria-controls="collapseThree">
+                    Abril
+                  </button>
+                </h2>
+                <div id="collapse4" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-abril">
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse5" name = "may" id="may" aria-expanded="false" aria-controls="collapseThree">
+                    Mayo
+                  </button>
+                </h2>
+                <div id="collapse5" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-mayo">
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse6" name = "jun" id="jun" aria-expanded="false" aria-controls="collapseThree">
+                    Junio
+                  </button>
+                </h2>
+                <div id="collapse6" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-junio">
+  
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse7" name = "jul" id="jul" aria-expanded="false" aria-controls="collapseThree">
+                    Julio
+                  </button>
+                </h2>
+                <div id="collapse7" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-julio">
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse8" name = "ago" id="ago" aria-expanded="false" aria-controls="collapseThree">
+                    Agosto
+                  </button>
+                </h2>
+                <div id="collapse8" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-agosto">
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse9" name = "sep" id="sep" aria-expanded="false" aria-controls="collapseThree">
+                    Septiembre
+                  </button>
+                </h2>
+                <div id="collapse9" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-septiembre">
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse10" name = "oct" id="oct" aria-expanded="false" aria-controls="collapseThree">
+                    Octubre
+                  </button>
+                </h2>
+                <div id="collapse10" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-octubre">
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse11" name = "nov" id="nov" aria-expanded="false" aria-controls="collapseThree">
+                    Noviembre
+                  </button>
+                </h2>
+                <div id="collapse11" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-noviembre">
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse12" name = "dic" id="dic" aria-expanded="false" aria-controls="collapseThree">
+                    Diciembre
+                  </button>
+                </h2>
+                <div id="collapse12" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                  data-bs-parent="#accordionExample">
+                  <div class="accordion-body busqueda-diciembre">
+                    
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      </p>
+    </div>
+    <!-- Fin del formulario de solicitud -->    
+  </div>
+</div>
+<!-- Código para las animaciones de las pestañas -->
+<script>
+    //Acá tenemos las pestañas
+    var home = document.getElementById("justify-center-home-tab");
+    var vacacione = document.getElementById("justify-center-profile-tab");
+    var epp = document.getElementById("justify-center-contact-tab");
+    var viatico = document.getElementById("justify-center-viatico-tab");
+    
+    //filtro
+    var hoy = document.getElementById("hoy");
+    var ayer = document.getElementById("ayer");
+    var estemes = document.getElementById("estemes");
+    var listames = document.getElementById("listames");
+
+    //Instancia de los meses
+    var en = document.getElementById("en");
+    var feb = document.getElementById("feb");
+    var mar = document.getElementById("mar");
+    var abr = document.getElementById("abr");
+    var may = document.getElementById("may");
+    var jun = document.getElementById("jun");
+    var jul = document.getElementById("jul");
+    var ago = document.getElementById("ago");
+    var sep = document.getElementById("sep");
+    var oct = document.getElementById("oct");
+    var nov = document.getElementById("nov");
+    var dic = document.getElementById("dic");
+    
+    var variable = "";
+
+    function ocultartodo()
+    {
+      $(".accordion-collapse").removeClass("show");
+      $(".accordion-button").addClass("collapsed");
+    }
+
+    function definirvalor(num, name)
+    {
+      $('#mesbus').val(num);
+      variable = name;
+    }
+
+    function definirtipo(ti)
+    {
+      $('#tipo').val(ti);
+    }
+
+    //addlistener del filtro
+    hoy.addEventListener("click", function() 
+    {
+      $('#meses-filter').hide();
+      $('#filter').show();
+      filtro(1);
+    });
+
+    ayer.addEventListener("click", function() 
+    {
+      $('#meses-filter').hide();
+      $('#filter').show();
+      filtro(2);
+    });
+
+    estemes.addEventListener("click", function() 
+    {
+      $('#meses-filter').hide();
+      $('#filter').show();
+      filtro(3);
+    });
+
+    listames.addEventListener("click", function() 
+    {
+      $('#filter').hide();
+      $('#meses-filter').show();
+    });
+
+    home.addEventListener("click", function() 
+    {
+      definirtipo(1);
+      ocultartodo();
+      $('#filter').hide();
+      $('#meses-filter').show();
+      $('#titulo').val("Solicitudes de prestaciones realizadas");
+    });
+
+    vacacione.addEventListener("click", function() 
+    {
+      definirtipo(2);
+      ocultartodo();
+      $('#filter').hide();
+      $('#meses-filter').show();
+      $('#titulo').html('Solicitudes de vacaciones realizadas');
+    });
+
+    epp.addEventListener("click", function() 
+    {
+      definirtipo(3);
+      ocultartodo();
+      $('#filter').hide();
+      $('#meses-filter').show();
+      $('#titulo').html('Solicitudes de epp realizadas');
+    });
+
+    viatico.addEventListener("click", function() 
+    {
+      definirtipo(4);
+      ocultartodo();
+      $('#filter').hide();
+      $('#meses-filter').show();
+      $('#titulo').html('Solicitudes de viaticos realizadas');
+    });
+
+    en.addEventListener("click", function() 
+    {
+      definirvalor(1, ".busqueda-enero");
+      busqueda();
+    });
+
+    feb.addEventListener("click", function() 
+    {
+      definirvalor(2, ".busqueda-febrero");
+      busqueda();
+    });
+
+    mar.addEventListener("click", function() 
+    {
+      definirvalor(3, ".busqueda-marzo");
+      busqueda();
+    });
+
+    abr.addEventListener("click", function() 
+    {
+      definirvalor(4, ".busqueda-abril");
+      busqueda();
+    });
+
+    may.addEventListener("click", function() 
+    {
+      definirvalor(5, ".busqueda-mayo");
+      busqueda();
+    });
+
+    jun.addEventListener("click", function() 
+    {
+      definirvalor(6, ".busqueda-junio");
+      busqueda();
+    });
+
+    jul.addEventListener("click", function() 
+    {
+      definirvalor(7, ".busqueda-julio");
+      busqueda();
+    });
+
+    ago.addEventListener("click", function() 
+    {
+      definirvalor(8, ".busqueda-agosto");
+      busqueda();
+    });
+
+    sep.addEventListener("click", function() 
+    {
+      definirvalor(9, ".busqueda-septiembre");
+      busqueda();
+    });
+
+    oct.addEventListener("click", function() 
+    {
+      definirvalor(10, ".busqueda-octubre");
+      busqueda();
+    });
+
+    nov.addEventListener("click", function() 
+    {
+      definirvalor(11, ".busqueda-noviembre");
+      busqueda();
+    });
+
+    dic.addEventListener("click", function() 
+    {
+      definirvalor(12, ".busqueda-diciembre");
+      busqueda();
+    });
+
+    function filtro(peticion)
+    {
+      var pet = peticion;
+      var tip = $('#tipo').val();
+      //alert('El tipo vale: ' + tip)
+
+      $.ajax({
+            url:"/filtro",
+            method:"POST",
+            data:{pet : pet, tip : tip},
+            success:function(data){
+                //$(".busqueda-junio").html(data);
+                //$(".busqueda-junio").append(data.htmlresponse);
+                $('#filter').html(data);
+                $('#filter').append(data.htmlresponse);
+            }
+        });
+    }
+    
+    function busqueda()
+    {
+      var mes = $('#mesbus').val();
+      var tip = $('#tipo').val();
+      //alert('El tipo vale: ' + tip)
+
+      $.ajax({
+            url:"/busqueda",
+            method:"POST",
+            data:{mes : mes, tip : tip},
+            success:function(data){
+                //$(".busqueda-junio").html(data);
+                //$(".busqueda-junio").append(data.htmlresponse);
+                $(variable).html(data);
+                $(variable).append(data.htmlresponse);
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,61 @@
+<div class="main-cont-verrrh">
+<div class="tab-content" id="justifyCenterTabContent">
+    <!-- Inicio de la pestaña solicitudes -->
+    <div class="tab-pane fade show active" id="justify-center-solicitudes" role="tabpanel" aria-labelledby="justify-center-home-tab">
+        <p class="dropcap  dc-outline-primary">
+
+        <!--inicio del formulario de epp-->
+        {% if presta%}
+        <div class="widget-content widget-content-area">
+            <div id="tabla">
+            <table class="table table-hover text-center">
+                <thead" id="tabla1">
+                <tr>
+                    <th  scope="col" colspan = "5" style = "text-align: center; background-color: #286478; color: white;">                
+                            <strong>{{encabezado}}</strong> 
+                    </th>    
+                </tr>
+                <!-- <tr style="height: 2px;"></tr> -->
+                  <tr style="background-color: #286478; color: white;">
+                    <th scope="col">
+                    Editar   
+                    </td>
+                    </th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">tipo</th>
+                    <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    
+                        {% for p in presta%}
+                        <tr>
+                        <th scope="row">
+                            <p><a class="btn btn-dark" style = "background: #286478; border-color: #286478;" href="{{url_for('verprestacionesempleado', id = p.idprestacion)}}"><i class="bi bi-eye" style = "color: white;"></i></a></p>
+                        </th>
+                        
+                        <td>{{p.Nombres}} {{p.Apellidos}}</td>
+                        <td>{{p.Monto}}</td>
+                        <td>{{p.tipo}}</td>
+                        {% if p.aceptado == 2 %}
+                            <td style="background-color: yellow;">Pendiente</td>
+                        {%elif p.aceptado == 1 %}
+                            <td style="background-color: red;">Rechazada</td>
+                        {%elif p.aceptado == 0 %}
+                            <td style="background-color: blue;">Aceptada</td>
+                        {%endif%}
+                        
+                        </tr>
+                        {%endfor%}
+                </tbody>
+              </table>
+            </div>
+        </div>
+        {%else%}
+            <h6 style="text-align: center">No hay {{encabezado}}</h6>
+        {% endif %}
+        </p>
+    </div>
+</div>
+</div>

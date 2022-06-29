@@ -1,0 +1,216 @@
+{% extends "layout.html" %} {% block content %}
+<link rel="stylesheet" href="/static/proyecto.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="../static/js/DsCot.js"></script>
+<body>
+    <div>
+      <!--
+        <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="50">
+            <nav class="navbar navbar-expand-sm  navbar-dark fixed-top"
+              style="margin-left: 200px; background-color: #538393; margin-bottom: 5px;">
+              <div class="container-fluid">
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="#sectionCotizacion" id="sectionCotizacionlist" >Proyectos</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#sectionMo" id="sectionMolist" onclick="changemodeMo()">Busqueda</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#sectionMateriales" id="sectionmaterialeslist"
+                      onclick="changemodeMaterial()"> <box-icon name='stopwatch' type='solid'><img style="margin-top: 4px;"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAQhJREFUSEvVlO0RAUEMhp/rhArQASWohA7QAZ0oQQlUQAk6YF5za5bbbHJm7of8vEvyfiSbhoGjGbg/UYCHQcStdxPaxoMDRJzcAnvgnidHFIyAFTAHpm3xGTgBB+AGqPkG0PdFDuIBiJGa10I5uxZwAiyBYyqoAYiNCiKRmEvlu7kKLQCLecovDV12rb/ZlADk+dVZS2urxu1M3uUlgJrvNQVq2lFRAqh57wGoduatqSU/n1kk54VTUlArjmzUR8++FnkAl+wxmgoij8sCCg25tqaegtCaqskvKsIPLbHscyo63kduUVRJkXkUQHmaiW6MDlk6fmKscy0rda7N8M61N1T3//8DPAGYpzEZvOfuVwAAAABJRU5ErkJggg==" />
+                    </box-icon>Historial de Proyectos</a></li>
+                
+                </ul>
+              </div>
+            </nav>
+          </body> -->
+    </div>
+    <div class="container-fluid color-base">
+     <h3 style="margin-left:15px ;">Detalle orden</h3>
+
+     <div class="container-principal">
+   <div style="display: flex;">
+     <div style=" margin:10px; padding:10px;">
+      <h4>
+      SCISA
+      </h4>
+      <h4>
+        <h3 > SERVICIOS DE
+          CONSULTORIA E INGENIERIA, S.A. </h3>
+        <br>
+        
+        <span> Bo Manolo Morales Esc Villa Venezuela 1C Oeste</span>
+        <br>
+        <span> 4C Sur 20 Vrs Oeste. Managua Nicaragua.</span>
+        
+      </h4>
+
+    </div>
+<div style=" margin:10px; padding:10px;">
+  <h3  class="presentacion" > Envie a </h3>
+      <h4>
+        {% for fila in clientei %}
+      {{fila.Compañia}}
+        {% endfor %}
+      </h4>
+      <h4>
+        {% for fila in clientei %}
+      {{fila.Nombre}}
+        {% endfor %}
+      </h4>
+      <h4>
+        {% for fila in clientei %}
+      {{fila.Direccion}}
+        {% endfor %}
+      </h4>
+    </div>
+    </div>
+    <div class="Inf-general">
+       
+        
+        <label for="">Nombre del proyecto</label>
+        {% for fila in datas1 %}
+        <p id="descripcion" style="color: black;">{{fila.Descripcion}}</p>
+        {% endfor %}
+    </div>
+    <div class="Inf-time">
+        <label for="">fecha de Inicio</label>
+        {% for fila in datas1 %}
+        <p id="fi" style="color: black;">{{fila.FechaInicio}}</p>
+        {% endfor %}
+        <label for=""> fecha de finalizacion</label>
+        {% for fila in datas1 %}
+        <p id="fn" style="color: black;">{{fila.FechaFin}}</p>
+        {% endfor %}
+        <label for="">Ubicacion</label>
+        <p id="ubicacion" >managua</p>
+    </div>
+ 
+    <div class="ms-inf-pro">
+        <div class="ms-inf-mat">
+            <h3>Materiales</h3>
+            
+    <table class="table table-striped" id="tabla_factura">
+        <thead>
+          <tr>
+            <th>Nombre del material</th>
+            <th>cantidad</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for fila in datasmats %}
+          <tr>
+            <td >{% if fila.Nombre !="" %}{{fila.Nombre}}{% endif%}</td>
+            <td>{{fila.Cantidad}}</td>
+          </tr>
+          {% endfor %}
+         
+        </tbody>
+      </table>
+        </div>
+        <div>
+            <h3>Mano de obra </h3>
+            
+    <table class="table table-striped" id="tabla_factura">
+        <thead>
+       
+          <tr>
+           
+            <th>Nombre del material</th>
+            <th>cantidad</th>
+          </tr>
+
+        </thead>
+       
+        <tbody>
+          {% for fila in datas %}
+          <tr>
+            <td >{{fila.NombreMO}} </td>
+            <td>{{fila.CantidadMo}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+        </div>
+    </div>
+    <script type="text/javascript">
+      function Addproyect() {
+        var fn = document.getElementById("fn").innerHTM;
+        var fi = document.getElementById("fi").innerHTML;
+        var ubicacion = document.getElementById("ubicacion").innerHTML;
+        var descripcion = document.getElementById("descripcion").innerHTML;
+      
+        const dict_values = {
+          fi,
+          fn,
+          ubicacion,
+           descripcion 
+        }
+       
+        const s = JSON.stringify(dict_values); // Stringify converts a JavaScript object or value to a JSON string
+        console.log(s)
+       
+        $.ajax({
+          type:"POST",
+          url: "/Proyecto",
+          traditional:false,
+          dataType:'json',
+          contentType  : "application/json;charset=utf-8",
+          data: JSON.stringify(s)
+        });
+      }
+    </script>
+   <!-- Button trigger modal -->
+   {% for fila in datas1 %}
+   {% if fila.IdEstado == 2 %}
+   <h3>Cotizacion Aprobada</h3>
+  {%else%}
+ <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Aprobar Cotizacion
+</button>
+{% endif%}
+{% endfor %}
+<!-- Modal -->
+{% for fila in datas1 %}
+   {% if fila.IdEstado == 2 %}
+
+   {%else%}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Detalle orden</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="input-modal">
+         <label for="">Codigo Orden:</label> <input class="input-forma" type="text" id="codigo">
+        </div>
+        <div class="input-modal">
+          <label for="">Ubicacion:</label> <input class="input-forma" type="text" id="Ubicacion">
+         </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" onclick="aceptar()">Aprobar Cotizacion</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif%}
+{% endfor %}
+  </div>
+
+
+</body>
+
+
+{% endblock %}

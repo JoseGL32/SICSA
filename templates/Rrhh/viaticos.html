@@ -1,0 +1,277 @@
+{% extends "layout.html" %} {% block content %}
+
+{% if salida == "correcto" %}
+  <script>
+    
+ function salida()
+    {
+		swal("Registro exitoso", "Se guardo su petición", "success");
+      return false;
+    }
+
+    salida()
+  </script>
+
+{% endif %}
+
+<!-- Encabezado -->
+<div class="text-center mt-4">
+    <label class="h4"><strong>Recursos Humanos</strong></label>
+</div>
+
+<!-- Inicio del menu de pestañas -->
+<ul class="nav nav-tabs  mb-3 mt-3 justify-content-center" id="justifyCenterTab" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-home-tab" data-toggle="tab" href="#justify-center-home" role="tab"
+            aria-controls="justify-center-home" aria-selected="true">Prestaciones</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-profile-tab" data-toggle="tab" href="#justify-center-profile" role="tab"
+            aria-controls="justify-center-profile" aria-selected="false">Vacaciones</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-contact-tab" data-toggle="tab" href="#justify-center-contact" role="tab"
+            aria-controls="justify-center-contact" aria-selected="false">EPP</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="justify-center-viatico-tab" data-toggle="tab" href="#justify-center-viatico" role="tab"
+            aria-controls="justify-center-viatico" aria-selected="false">Víaticos</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" id="justify-center-solicitudes-tab" data-toggle="tab" href="#justify-center-solicitudes" role="tab"
+            aria-controls="justify-center-viatico" aria-selected="false">Solicitudes</a>
+    </li>
+</ul>
+<!-- fin del menu de pestañas -->
+
+<div class="tab-content" id="justifyCenterTabContent">
+   <!-- Inicio del formulario de solicitud -->
+   <div class="tab-pane fade" id="justify-center-home" role="tabpanel" aria-labelledby="justify-center-home-tab">
+    <p class="dropcap  dc-outline-primary">
+    <!--inicio del formulario de epp-->
+    <div class="widget-content widget-content-area">
+            <div class="col col-12">
+            {% if di >= 180%}
+            <form id="formbus" method="POST" action="busquedacodpre">
+                <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p>Código de usuario</p>
+                        <input id="t-userName" type="number" name="codigo" placeholder="Código del usuario"
+                            min="1" class="form-control" required>
+                    </div>
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p style="color: white;">Busqueda</p>
+                        <button type="submit" class="btn btn-primary w-20"
+                            >
+                            <a style="color: white; text-decoration: none;">Buscar</a>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% else %}
+            <h6 style="text-align: center; margin-top: 10rem;">Lo sentimos, aún no puedes solicitar préstamos o adelanto de salario (Debes tener mas de 6 meses trabajando en la empresa)
+            <br>
+            <br>
+            <br>
+            <br>
+            Fecha de contrato: {{dias[0].fechacontrato}}
+            </h6>
+            
+            {% endif%}
+            </div>
+    </div>
+    </p>
+</div>
+<!-- Fin del formulario de solicitud -->
+
+<!-- Inicio del formulario de vacaciones -->
+<div class="tab-pane fade" id="justify-center-profile" role="tabpanel" aria-labelledby="justify-center-profile-tab">
+    <p class="dropcap  dc-outline-primary">
+        <div class="widget-content widget-content-area">
+            <div class="col col-12">
+            {% if di >= 180%}
+            <form id="formbus" method="POST" action="busquedacodvac">
+                <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p>Código de usuario</p>
+                        <input id="t-userName" type="number" name="codigo" placeholder="Código del usuario"
+                            min="1" class="form-control" required>
+                    </div>
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p style="color: white;">Busqueda</p>
+                        <button type="submit" class="btn btn-primary w-20"
+                            >
+                            <a style="color: white; text-decoration: none;">Buscar</a>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            {% else %}
+            <h6 style="text-align: center; margin-top: 10rem;">Lo sentimos, aún no puedes solicitar préstamos o adelanto de salario (Debes tener mas de 6 meses trabajando en la empresa)
+            <br>
+            <br>
+            <br>
+            <br>
+            Fecha de contrato: {{dias[0].fechacontrato}}
+            </h6>
+            
+            {% endif%}
+            </div>
+    </div>
+</p>
+</div>
+<!-- Fin del formulario de vacaciones -->
+
+<!-- Inicio del formulario de Epp -->
+<div class="tab-pane fade" id="justify-center-contact" role="tabpanel" aria-labelledby="justify-center-contact-tab">
+    <p class="dropcap  dc-outline-primary">
+        <div class="widget-content widget-content-area">
+            <div class="col col-12">
+            <form id="formbus" method="POST" action="/busquedacodepp">
+                <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p>Código de usuario</p>
+                        <input id="t-userName" type="number" name="codigo" placeholder="Código del usuario"
+                            min="1" class="form-control" required>
+                    </div>
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p style="color: white;">Busqueda</p>
+                        <button type="submit" class="btn btn-primary w-20"
+                            >
+                            <a style="color: white; text-decoration: none;">Buscar</a>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            </div>
+    </div>
+    </p>
+</div>
+<!-- fin del formulario epp -->
+
+<!--Inicio del formulario viaticos-->
+<div class="tab-pane fade" id="justify-center-viatico" role="tabpanel" aria-labelledby="justify-center-viatico-tab">
+    <p class="dropcap  dc-outline-primary">
+        <!--inicio del formulario de viaticos-->
+        <div class="widget-content widget-content-area">
+            <div class="col col-12">
+            <form id="formbus" method="POST" action="busquedacodvia">
+                <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p>Código de usuario</p>
+                        <input id="t-userName" type="number" name="codigo" placeholder="Código del usuario"
+                            min="1" class="form-control" required>
+                    </div>
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p style="color: white;">Busqueda</p>
+                        <button type="submit" class="btn btn-primary w-20"
+                            >
+                            <a style="color: white; text-decoration: none;">Buscar</a>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            </div>
+    </div>
+    <!--fin del formulario de viaticos-->
+    </p>
+</div>
+<!-- Fin del formulario viaticos -->
+
+    <!-- Inicio de la pestaña solicitudes -->
+    <div class="tab-pane fade show active" id="justify-center-solicitudes" role="tabpanel" aria-labelledby="justify-center-home-tab">
+        <p class="dropcap  dc-outline-primary">
+                <div class="text-center my-4">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                        <h5><strong>Viaticos</strong></h5>
+                    </div>
+                </div>
+        <!--inicio del formulario de epp-->
+        <div class="widget-content widget-content-area">
+            <div id="tabla">
+            <table class="table table-hover text-center">
+                <thead" id="tabla1">
+                <tr>
+                    <th  scope="col" colspan = "5" style = "text-align: center; background-color: #286478; color: white;">
+                        <!-- <div class="dropdown show"> -->
+                        <a style="background-color: #286478; border: none; " class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <strong>Viaticos</strong> 
+                        </a>
+                      
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="/mostrarprestaciones">Prestaciones</a>
+                          <a class="dropdown-item" href="/mostrarvacaciones">Vacaciones</a>
+                          <a class="dropdown-item" href="/mostrarepp">EPP</a>
+                          <a class="dropdown-item" href="/mostrarviaticos">Viaticos</a>
+                        </div>
+                      <!-- </div> -->
+                    </th>    
+                </tr>
+                <!-- <tr style="height: 2px;"></tr> -->
+                  <tr style="background-color: #286478; color: white;">
+                    <th scope="col">
+                    Editar   
+                    </td>
+                    </th>
+                    <th scope="col">Inicio</th>
+                    <th scope="col">Final</th>
+                    <th scope="col">Destino</th>
+                    <th scope="col">Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for p in presta%}
+                  <tr>
+                    <th scope="row">
+                        <p><a class="btn btn-dark" style = "background: #286478; border-color: #286478;" href="{{url_for('infoviaticos', id = p.idviatico)}}"><i class="bi bi-eye" style = "color: white;"></i></a></p>
+                    </th>
+                    
+                    <td>{{p.inicio}}</td>
+                    <td>{{p.final}}</td>
+                    <td>{{p.destino}}</td>
+                    {% if p.aceptado == 2 %}
+                        <td style="background-color: yellow;">Pendiente</td>
+                    {%elif p.aceptado == 1 %}
+                        <td style="background-color: red;">Rechazada</td>
+                    {%elif p.aceptado == 0 %}
+                        <td style="background-color: blue;">Aceptada</td>
+                    {%endif%}
+                    
+                  </tr>
+                  {%endfor%}
+                </tbody>
+              </table>
+            </div>
+        </p>
+    </div>
+</div>
+
+<!-- Código para las animaciones de las pestañas -->
+<script>
+    document.getElementById("datesVacaciones").flatpickr({
+        mode: "range",
+        // enableTime: true,
+        dateFormat: "d-m-Y",
+    });
+
+    document.getElementById("start-hour").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+    });
+    document.getElementById("end-hour").flatpickr({
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i",
+    });
+
+    document.getElementById("datesViatico").flatpickr({
+        mode: "range",
+        enableTime: true,
+        dateFormat: "d-m-Y",
+    });
+
+    document.querySelector('input[name="horario"]:checked')
+
+</script>
+{% endblock %}

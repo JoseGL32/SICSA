@@ -1,0 +1,168 @@
+{% extends "layout.html" %} {% block content %}
+
+<head>
+    <link rel="stylesheet" href="../../../static/diseño.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+
+<div class="text-center mt-4">
+    <label class="h4"><strong>Solicitud de vacaciones</strong></label>
+</div>
+
+<div class="tab-content" id="justifyCenterTabContent">
+    <!-- Inicio del formulario de vacaciones -->
+    <div class="tab-pane fade show active" id="justify-center-profile" role="tabpanel" aria-labelledby="justify-center-profile-tab">
+        <p class="dropcap  dc-outline-primary">
+                <div class="widget-content widget-content-area">
+        <form id="formvaca" name="formvaca" method="POST">
+
+            <input id="nombres" type="hidden" name="id"  value="{{info[0].idvacaciones}}">
+            <input id="acept" type="hidden" name="aceptado">
+
+            <div class="col col-12">
+                <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p>Código de usuario</p>
+                        <input id="cod" type="number" value="{{info[0].Id_Empleado}}" placeholder="Código del usuario"
+                            min="1" class="form-control" name="codigo" disabled>
+                    </div>
+                </div>
+                <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p>Nombres</p>
+                        <input id="nombres" type="text" name="nombre" placeholder="Ingrese su nombre" disabled value="{{info[0].nombres}}"
+                            class="form-control">
+                    </div>
+                
+                    <div class="form-group col-6 ml-0 pl-0" id="container-user">
+                        <p>Apellidos</p>
+                        <input id="apellidos" type="text" name="apellido" placeholder="Ingrese sus apellidos" disabled value="{{info[0].apellidos}}"
+                            class="form-control" >
+                    </div>   
+                    </div>
+                
+                <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                    <div class="form-group col-6 ml-0 pl-0" id="container-name">
+                        <p>Fecha de inicio</p>
+                        <input id="t-userName" type="date" name="inicio" placeholder="Apellidos de usuario" value="{{info[0].inicio}}"
+                            class="form-control" disabled>
+                    </div>
+                
+                    <div class="form-group col-6 ml-0 pl-0" id="container-user">
+                        <p>Fecha de final</p>
+                        <input id="t-userName" type="date" name="final" placeholder="Apellidos de usuario" value="{{info[0].final}}" disabled
+                            class="form-control">
+                    </div>   
+                </div>
+                
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <p>Descripcion permiso</p>
+                            <textarea id="taskdescription" placeholder="Descripcion" rows="3" class="form-control"
+                                name="descripcion" required></textarea>
+                    </div>
+                </div> -->
+                <div class="row col-12 pl-0 pr-0 ml-0 mr-0">
+                    <div class="form-group col-6 ml-0 pl-0" id="container-monto">
+                        <div class="form-group" id="container-concepto">
+                            <p>Descripcion permiso</p>
+                            <textarea id="taskdescription" placeholder="Descripcion" rows="2"  class="form-control"
+                                name="descripcion" disabled>{{info[0].descripcion}}</textarea>
+                            
+                        </div>
+                       
+                    </div>
+                    <!-- <div id="cuotas" class="form-group col-6 ml-0 pl-0 mr-0 pr-0" id="container-cuota">
+                        <p>Cédula del usuario</p>
+                    <input id="ced" type="text" name="cedula" placeholder="000-000000-0000A" maxlength="16"
+                        class="form-control" disabled value="{{info[0].Cedula}}">
+                    </div> -->
+                </div>
+
+                <div class="form-group" id="moti">
+                    <p>Motivo</p>
+                    <input id="moti" type="text" name="mot" value="{{info[0].motivo}}" disabled class="form-control" >
+                </div>
+
+                <div class="form-group justify-content-center py-2">
+                    <p class="text-center">Esta solicitud tiene una <b>vigencia de 7 días</b></p>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center;">
+                <div class="row justify-content-center mr-2">
+                    <button type="submit" class="btn btn-primary" onclick="val1()"><a style="color: white; text-decoration: none;">Aceptar</a></button>
+                </div> 
+
+                <div class="row justify-content-center mr-2 ml-2">
+                    <button type="submit" class="btn btn-primary" onclick="val2()"><a style="color: white; text-decoration: none;">Rechazar</a></button>
+                </div>
+    
+                <div class="row justify-content-center ml-2">
+                    <button type="reset" class="btn btn-primary"><a style="color: white; text-decoration: none;" href="/RRHHadmin">Atrás</a></button>
+                </div>  
+            </div> 
+        </form>
+    </div>
+    </p>
+    </div>
+    <!-- Fin del formulario de vacaciones -->
+</div>
+
+<script>
+    function envio()
+    {
+        document.formvaca.submit();
+    }
+    
+    function val1()
+    {
+        document.getElementById("acept").value = 1;
+        event.preventDefault();
+        
+        swal({
+        title: "¿Estás seguro?",
+        text: "Una vez que aceptes esta petición no podra modificarse",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            swal("¡Hecho! La petición ha sido aceptada", {
+            icon: "success",
+            });
+            window.setTimeout(envio, 1000);
+        } else {
+            swal("No se ha modificado la petición");
+            return false;
+        }
+        });
+    }
+
+    function val2()
+    {
+        document.getElementById("acept").value = 2;
+        event.preventDefault();
+        
+        swal({
+        title: "¿Estás seguro?",
+        text: "Una vez que rechaces esta petición no podra modificarse",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+        })
+        .then((willDelete) => {
+        if (willDelete) {
+            swal("¡Hecho! La petición ha sido rechazada", {
+            icon: "success",
+            });
+            window.setTimeout(envio, 1000);
+        } else {
+            swal("No se ha modificado la petición");
+            return false;
+        }
+        });
+    }
+</script>
+{% endblock %}

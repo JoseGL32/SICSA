@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!----===== Boxicons CSS ===== -->
+    <script src="https://unpkg.com/boxicons@2.1.2/dist/boxicons.js"></script>
+
+    <!----===== Bootstramp ===== -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    />
+
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="../static/js/validaciones.js" type="text/javascript"></script>
+    <script src="../static/js/tooltip.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="../static/tooltip.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.11.0/sweetalert2.js"></script>
+    <!-- Iconos -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+
+    <!----===== CSS ===== -->
+    <link rel="stylesheet" href="./static/diseño.css" />
+
+    <!----===== GOOGLE FONT ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <!----===== JS ===== -->
+    <script src="../static/js/main.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  </head>
+
+  <body>
+    <nav class="menu-todo">
+      <label class="logo">SCISA</label>
+      <ul class="menu_items">
+        <li><a href="/home">Home</a></li>
+        <div class="dropdown">
+          <button class="dropbtn">Modulos</button>
+          <div class="dropdown-content">
+            {% if session.user %} {% if session.userrole == 1%}
+            <a href="/Cotizacion">Cotizacion</a>
+            <a href="/facturacion">Facturacion</a>
+            <a href="/RRHHadmin">RRHH</a>
+            {% else%}
+            <a href="/RRHH">RRHH</a>
+            {% endif %} {% endif %} {% if session.user %} {% if session.userrole
+            == 1%}
+            <a href="/planificacion">Planificacion</a>
+            <a href="/ejecucion">Ejecucion</a>{% endif %}{% endif %}
+          </div>
+        </div>
+        {% if session.user %} {% if session.userrole == 1%}
+        <li><a href="/admin">Administrar</a></li>
+        {% endif %}{% endif %}
+        <li><a href="#">Ayuda</a></li>
+
+        <li id="logout"><a href="/deslog">{{ session.user }}</a></li>
+      </ul>
+      <box-icon
+        id="logout-icon"
+        name="user-circle"
+        type="solid"
+        color="#ffffff"
+      ></box-icon>
+      <span class="btn_menu">
+        <box-icon name="menu" color="#ffffff"></box-icon>
+      </span>
+    </nav>
+    <div class="div-contenido">{% block content %} {% endblock %}</div>
+  </body>
+</html>

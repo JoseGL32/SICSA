@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../static/success.css" />
+    <link rel="stylesheet" href="../static/formularios.css" />
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="modal-dialog" id="ignismyModal" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <a
+                  id="flecha"
+                  type="button"
+                  class="close"
+                  data-dismiss="modal"
+                  href="{{ url_for( 'home')}}"
+                  aria-label=""
+                  ><span>×</span></a
+                >
+              </div>
+
+              <div class="modal-body">
+                <div class="thank-you-pop">
+                  <img
+                    src="http://goactionstations.co.uk/wp-content/uploads/2017/03/Green-Round-Tick.png"
+                    alt=""
+                  />
+                  <h1>Reporte Generado!</h1>
+                  <p>Su reporte se generó con éxito</p>
+
+                  <a href="{{ url_for( 'home')}}"
+                    ><button class="enviar">Aceptar</button></a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
