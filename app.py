@@ -34,7 +34,6 @@ jinja_env = Environment(extensions=['jinja2.ext.do'])
 def Index():
     return render_template('login.html')
 
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     session.clear()
